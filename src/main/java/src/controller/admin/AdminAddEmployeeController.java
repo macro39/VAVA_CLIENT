@@ -113,7 +113,7 @@ public class AdminAddEmployeeController extends Notification implements Initiali
         return comboBoxType.getSelectionModel().getSelectedItem().toString();
     }
 
-    public boolean tooLongText(){
+    public boolean tooLongTextChecker(){
         if (getFirstName().length() > 255 ||
                 getLastName().length() > 255 ||
                 getLogin().length() > 255 ||
@@ -137,7 +137,7 @@ public class AdminAddEmployeeController extends Notification implements Initiali
     }
 
     public void btnAddEmployeePushed(ActionEvent actionEvent) {
-        if(tooLongText()) {
+        if(tooLongTextChecker()) {
             showWarning("Príliš dlhé údaje. Max. veľkosť jedného údaju je 254 znakov!");
             return;
         }

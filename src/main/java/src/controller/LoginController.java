@@ -16,6 +16,7 @@ import javafx.util.Duration;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import src.controller.admin.AdminMenuController;
+import src.controller.employee.EmployeeMenuController;
 import src.model.Employee;
 
 import java.io.IOException;
@@ -23,6 +24,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginController extends Notification implements Initializable {
 
@@ -38,6 +41,8 @@ public class LoginController extends Notification implements Initializable {
     private JFXPasswordField fieldPassword;
 
     private ResourceBundle actualLanguage;
+
+    private static Logger LOG = Logger.getLogger(LoginController.class.getName());
 
     public void initialize(URL location, ResourceBundle resources) {
         buttonLogIn.setDefaultButton(true);
@@ -70,7 +75,7 @@ public class LoginController extends Notification implements Initializable {
     public void logIn(ActionEvent actionEvent) {
 
         if(emptyFieldChecker()) {
-            showError("Zadaj údaje!");
+            showError(actualLanguage.getString("notificationNoEnterData"));
             return;
         }
 
@@ -85,18 +90,26 @@ public class LoginController extends Notification implements Initializable {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Employee> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<Employee> result = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, Employee.class);
+        ResponseEntity<Employee> result;
+
+        try {
+            result = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, Employee.class);
+        } catch (Exception e) {
+            LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
+            showError(actualLanguage.getString("notificationNoResponseServer"));
+            return;
+        }
 
         if(result.getBody() == null) {
-            showError("Nesprávne prihlasovacie údaje!");
+            showError(actualLanguage.getString("notificationBadLoginData"));
         } else {
 
             if(result.getBody().getType().equals("admin")) {
                 setNewScene("/view/admin/admin_menu.fxml", result.getBody());
             } else {
-
+                setNewScene("/view/employee/employee_menu.fxml", result.getBody());
             }
-            showConfirm("Prihlásenie prebehlo úspešne!");
+            showConfirm(actualLanguage.getString("notificationLogin"));
         }
     }
 
@@ -112,8 +125,8 @@ public class LoginController extends Notification implements Initializable {
                 AdminMenuController adminMenuController = loader.getController();
                 adminMenuController.setAdmin(employee);
             } else {
-//                EmployeeMenuController employeeMenuController = loaader.getController();
-//                employeeMenuController.setEmployee(employee);
+                EmployeeMenuController employeeMenuController = loader.getController();
+                employeeMenuController.setEmployee(employee);
             }
 
         } catch (IOException e) {
