@@ -1,0 +1,109 @@
+* {
+    black: #000000;
+    blue: #3B6EA5;
+    orange: #FFA500;
+    white: #f2f2f2;
+
+}
+
+.root {
+    -fx-background-color: blue;
+}
+
+.button {
+    -fx-font: 16px "Italic";
+    -fx-text-fill: black;
+    -fx-padding: 5;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+}
+.combo-box {
+    -fx-font: 16px "Italic";
+    -fx-text-fill: black;             // pozor pri vybere
+    -fx-text-alignment: left;
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+}
+
+.combo-box-popup .list-view .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.combo-box-popup > .list-view {
+    -fx-pref-width: 185;
+    -fx-pref-height: 250;
+}
+
+.jfx-combo-box {
+    -jfx-focus-color: white;
+    -jfx-unfocus-color: white;
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+}
+
+.combo-box .cell:selected {
+    -fx-text-fill: white;
+}
+
+.jfx-combo-box > .input-line {
+    -fx-background-color: white;
+    -fx-pref-height: 1px;
+    -fx-translate-y: 1px;
+}
+
+.jfx-combo-box > .input-focused-line {
+    -fx-background-color: white;
+    -fx-pref-height: 2px;
+}
+
+.jfx-combo-box,
+.jfx-combo-box:focused,
+.jfx-combo-box:editable,
+.jfx-combo-box:editable:focused {
+    -fx-background-color: TRANSPARENT, TRANSPARENT, TRANSPARENT, TRANSPARENT;
+    -fx-background-radius: 3px;
+    -fx-background-insets: 0px;
+}
+
+.jfx-combo-box .combo-box-button-container {
+    -fx-background-color: TRANSPARENT;
+}
+
+.jfx-combo-box > .arrow-button,
+.jfx-combo-box:editable > .arrow-button,
+.jfx-combo-box:editable:focused > .arrow-button {
+    -fx-background-color: TRANSPARENT;
+}
+
+.spinner {
+    -fx-background-radius: 10;
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.jfx-text-field, .jfx-password-field {
+    -fx-prompt-text-fill: white;
+    -fx-text-fill: white;
+    -fx-font: 18px "Italic";
+    -jfx-focus-color: black;
+    -jfx-unfocus-color: white;
+}
+
+.jfx-date-picker {
+    -jfx-default-color: white;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: blue;
+}
+
+.date-picker-popup > * > .spinner {
+    -fx-spacing: 0.25em; /* 3 */
+    -fx-alignment: CENTER;
+    -fx-fill-height: false;
+    -fx-background-color: transparent;
+}

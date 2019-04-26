@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="600.0" stylesheets="@../our.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controller.LoginController">
+    <children>
+        <VBox layoutX="131.0" layoutY="208.0" prefHeight="250.0" prefWidth="350.0">
+            <children>
+                <HBox prefHeight="75.0" prefWidth="350.0">
+                    <children>
+                  <JFXTextField fx:id="fieldLogin" focusColor="BLACK" prefHeight="65.0" prefWidth="350.0" promptText="%usernameText" unFocusColor="WHITE" />
+                    </children>
+                </HBox>
+                <HBox prefHeight="75.0" prefWidth="350.0">
+                    <children>
+                  <JFXPasswordField fx:id="fieldPassword" focusColor="BLACK" prefHeight="65.0" prefWidth="350.0" promptText="%passwordText" unFocusColor="WHITE" />
+                    </children>
+                </HBox>
+                <HBox alignment="TOP_RIGHT" prefHeight="100.0" prefWidth="200.0">
+                    <children>
+                        <Button fx:id="buttonLogIn" alignment="CENTER" defaultButton="true" mnemonicParsing="false" onAction="#logIn" prefHeight="40.0" prefWidth="144.0" text="%loginButton" />
+                    </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+                </HBox>
+            </children>
+        </VBox>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="206.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/logo.png" />
+         </image>
+      </ImageView>
+      <Button layoutX="14.0" layoutY="536.0" mnemonicParsing="false" onAction="#buttonSKlangPushed" prefHeight="50.0" prefWidth="50.0">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/flagSK.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="83.0" layoutY="536.0" mnemonicParsing="false" onAction="#buttonENlangPushed" prefHeight="50.0" prefWidth="50.0">
+         <graphic>
+            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/flagEN.gif" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+    </children>
+</AnchorPane>

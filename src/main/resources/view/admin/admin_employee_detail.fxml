@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="200.0" prefWidth="800.0" stylesheets="@../../our.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controller.admin.AdminEmployeeDetailController">
+   <children>
+      <TableView fx:id="tableView" layoutX="13.0" layoutY="76.0" prefHeight="80.0" prefWidth="775.0">
+        <columns>
+          <TableColumn fx:id="columnID" editable="false" prefWidth="65.0" text="ID" />
+          <TableColumn fx:id="columnFirstName" onEditCommit="#changeFirstNameCell" prefWidth="112.0" text="%collumnFirstName" />
+            <TableColumn fx:id="columnLastName" onEditCommit="#changeLastNameCell" prefWidth="118.0" text="%collumnLastName" />
+            <TableColumn fx:id="columnLogin" editable="false" minWidth="5.0" prefWidth="117.0" text="%collumnLogin" />
+            <TableColumn fx:id="columnPassword" onEditCommit="#changePasswordCell" prefWidth="117.0" text="%passwordText" />
+            <TableColumn fx:id="columnPhone" onEditCommit="#changePhoneCell" prefWidth="131.0" text="%collumnPhone" />
+            <TableColumn fx:id="columnType" editable="false" prefWidth="100.0" text="%collumnType" />
+        </columns>
+      </TableView>
+      <Label layoutX="246.0" layoutY="14.0" text="%employeeDetailText" textFill="WHITE">
+         <font>
+            <Font size="36.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
