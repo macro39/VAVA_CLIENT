@@ -74,6 +74,28 @@ public class EmployeeSearchMenuController extends EmployeeBackToMenu implements 
     }
 
     public void btnSearchCarPushed(ActionEvent actionEvent) {
+        Parent parent = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/employee/employee_search_car.fxml"), actualLanguage);
+            parent = (Parent) loader.load();
+
+            EmployeeSearchCarController employeeSearchCarController = loader.getController();
+            employeeSearchCarController.setEmployee(employee);
+            employeeSearchCarController.addItemsToList();
+            employeeSearchCarController.addItemsToTable();
+            employeeSearchCarController.setNewRangeOfDisplayedData();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene newScene = new Scene(parent);
+
+        //This line gets the Stage information
+        Stage currentStage = (Stage) rootPane.getScene().getWindow();
+
+        currentStage.setScene(newScene);
+        currentStage.show();
     }
 
     public void btnSearchContractPushed(ActionEvent actionEvent) {
