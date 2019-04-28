@@ -9,6 +9,9 @@
 <AnchorPane fx:id="rootPane" prefHeight="200.0" prefWidth="800.0" stylesheets="@../../our.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controller.employee.EmployeeCustomerDetailController">
     <children>
         <TableView fx:id="tableView" layoutX="13.0" layoutY="76.0" prefHeight="80.0" prefWidth="775.0">
+            <placeholder>
+                <Label text="%noResultLabel" />
+            </placeholder>
             <columns>
                 <TableColumn fx:id="columnID" editable="false" prefWidth="114.0" text="%collumnID" />
                 <TableColumn fx:id="columnFirstName" onEditCommit="#changeFirstNameCell" prefWidth="115.0" text="%collumnFirstName" />

@@ -96,9 +96,9 @@
                     <contextMenu>
                         <ContextMenu>
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#detailMenuSelected" text="Zobraziť detail" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteMenuSelected" text="Zmazať" />
-                        <MenuItem mnemonicParsing="false" onAction="#createContractMenuSelected" text="Vytvoriť zmluvu" />
+                                <MenuItem mnemonicParsing="false" onAction="#detailMenuSelected" text="%tableOptionShowDetail" />
+                                <MenuItem mnemonicParsing="false" onAction="#deleteMenuSelected" text="%tableOptionDelete" />
+                                <MenuItem mnemonicParsing="false" onAction="#createContractMenuSelected" text="%tableOptionCreateAgreement" />
                             </items>
                         </ContextMenu>
                     </contextMenu>

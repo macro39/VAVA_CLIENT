@@ -16,15 +16,18 @@
 
 <AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="600.0" stylesheets="@../../our.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controller.employee.EmployeeAddCarController">
     <children>
-        <HBox alignment="CENTER" prefHeight="60.0" prefWidth="600.0" spacing="10.0">
+        <HBox alignment="CENTER_RIGHT" prefHeight="60.0" prefWidth="600.0" spacing="10.0">
             <children>
                 <Label alignment="CENTER" prefHeight="60.0" prefWidth="482.0" text="%addCarText" textFill="WHITE">
                     <font>
-                        <Font name="Lucida Console" size="30.0" />
+                        <Font name="Lucida Console" size="23.0" />
                     </font>
                 </Label>
-                  <Button mnemonicParsing="false" onAction="#btnBackPushed" text="%backButton" />
+                <Button mnemonicParsing="false" onAction="#btnBackPushed" text="%backButton" />
             </children>
+            <padding>
+                <Insets right="10.0" />
+            </padding>
         </HBox>
         <HBox layoutX="75.0" layoutY="60.0" prefHeight="526.0" prefWidth="380.0" spacing="40.0">
             <children>
@@ -33,64 +36,64 @@
                         <Label prefHeight="35.0" prefWidth="120.0" text="%brandLabel" textFill="WHITE" />
                         <Label prefHeight="35.0" prefWidth="120.0" text="%modelLabel" textFill="WHITE" />
                         <Label prefHeight="35.0" prefWidth="160.0" text="%yearOfProductionLabel" textFill="WHITE" />
-                  <Label prefHeight="35.0" prefWidth="160.0" text="%mileageLabel" textFill="WHITE" />
+                        <Label prefHeight="35.0" prefWidth="160.0" text="%mileageLabel" textFill="WHITE" />
                         <Label prefHeight="35.0" prefWidth="120.0" text="%fuelLabel" textFill="WHITE" />
                         <Label prefHeight="35.0" prefWidth="120.0" text="%engineCapacityLabel" textFill="WHITE" />
                         <Label prefHeight="35.0" prefWidth="120.0" text="%enginePowerLabel" textFill="WHITE" />
                         <Label prefHeight="35.0" prefWidth="160.0" text="%gearBoxLabel" textFill="WHITE" />
                         <Label prefHeight="35.0" prefWidth="120.0" text="%bodyStyleLabel" textFill="WHITE" />
                         <Label prefHeight="35.0" prefWidth="120.0" text="%colorLabel" textFill="WHITE" />
-                  <Label prefHeight="35.0" prefWidth="120.0" text="%licencePlateLabel" textFill="WHITE" />
-                  <Label prefHeight="35.0" prefWidth="127.0" text="%vinLabel" textFill="WHITE" />
-                  <Label prefHeight="35.0" prefWidth="179.0" text="%pricePerDayLabel" textFill="WHITE" />
+                        <Label prefHeight="35.0" prefWidth="120.0" text="%licencePlateLabel" textFill="WHITE" />
+                        <Label prefHeight="35.0" prefWidth="127.0" text="%vinLabel" textFill="WHITE" />
+                        <Label prefHeight="35.0" prefWidth="179.0" text="%pricePerDayLabel" textFill="WHITE" />
                     </children>
                 </VBox>
                 <VBox prefHeight="460.0" prefWidth="187.0" spacing="5.0">
                     <children>
-                  <JFXComboBox fx:id="comboBoxBrand" onAction="#comboBoxBrandSelected" prefHeight="35.0" prefWidth="233.0" />
-                  <JFXComboBox fx:id="comboBoxModel" onAction="#comboBoxModelSelected" onMouseClicked="#comboBoxModelClicked" prefHeight="35.0" prefWidth="203.0" />
-                  <JFXDatePicker fx:id="datePickerYear" editable="false" onAction="#datePickerDateSelected" prefHeight="39.0" prefWidth="201.0" />
-                  <Spinner fx:id="spinnerMileage" prefHeight="35.0" prefWidth="185.0" />
-                  <JFXComboBox fx:id="comboBoxFuel" onAction="#comboBoxFuelSelected" prefHeight="35.0" prefWidth="205.0" />
-                         <Spinner fx:id="spinnerEngineCapacity" prefHeight="35.0" prefWidth="185.0" />
-                         <Spinner fx:id="spinnerEnginePower" prefHeight="35.0" prefWidth="185.0" />
-                  <JFXComboBox fx:id="comboBoxGearBox" onAction="#comboBoxGearBoxSelected" prefHeight="35.0" prefWidth="205.0" />
-                  <JFXComboBox fx:id="comboBoxCarBody" onAction="#comboBoxCarBodySelected" prefHeight="35.0" prefWidth="202.0" />
-                  <JFXComboBox fx:id="comboBoxColor" onAction="#comboBoxColorSelected" prefHeight="35.0" prefWidth="195.0" />
-                  <JFXTextField fx:id="textFieldSPZ" prefHeight="35.0" prefWidth="175.0" />
-                  <JFXTextField fx:id="textFieldVIN" prefHeight="35.0" prefWidth="175.0" />
-                  <JFXTextField fx:id="textFieldPrice" prefHeight="35.0" prefWidth="175.0" />
+                        <JFXComboBox fx:id="comboBoxBrand" onAction="#comboBoxBrandSelected" prefHeight="35.0" prefWidth="233.0" />
+                        <JFXComboBox fx:id="comboBoxModel" onAction="#comboBoxModelSelected" onMouseClicked="#comboBoxModelClicked" prefHeight="35.0" prefWidth="203.0" />
+                        <JFXDatePicker fx:id="datePickerYear" editable="false" onAction="#datePickerDateSelected" prefHeight="39.0" prefWidth="201.0" />
+                        <Spinner fx:id="spinnerMileage" prefHeight="35.0" prefWidth="185.0" />
+                        <JFXComboBox fx:id="comboBoxFuel" onAction="#comboBoxFuelSelected" prefHeight="35.0" prefWidth="205.0" />
+                        <Spinner fx:id="spinnerEngineCapacity" prefHeight="35.0" prefWidth="185.0" />
+                        <Spinner fx:id="spinnerEnginePower" prefHeight="35.0" prefWidth="185.0" />
+                        <JFXComboBox fx:id="comboBoxGearBox" onAction="#comboBoxGearBoxSelected" prefHeight="35.0" prefWidth="205.0" />
+                        <JFXComboBox fx:id="comboBoxCarBody" onAction="#comboBoxCarBodySelected" prefHeight="35.0" prefWidth="202.0" />
+                        <JFXComboBox fx:id="comboBoxColor" onAction="#comboBoxColorSelected" prefHeight="35.0" prefWidth="195.0" />
+                        <JFXTextField fx:id="textFieldSPZ" prefHeight="35.0" prefWidth="175.0" />
+                        <JFXTextField fx:id="textFieldVIN" prefHeight="35.0" prefWidth="175.0" />
+                        <JFXTextField fx:id="textFieldPrice" prefHeight="35.0" prefWidth="175.0" />
                     </children>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
                 </VBox>
             </children>
         </HBox>
-      <Button layoutX="455.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnAddBrandPushed" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #ffffff;">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../image/plus.jpg" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <Button fx:id="buttonAddModel" layoutX="455.0" layoutY="104.0" mnemonicParsing="false" onAction="#btnAddModelPushed" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #ffffff;">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../image/plus.jpg" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-      <Button fx:id="buttonAddColor" layoutX="455.0" layoutY="424.0" mnemonicParsing="false" onAction="#btnAddColorPushed" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #ffffff;">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../image/plus.jpg" />
-               </image>
-            </ImageView>
-         </graphic></Button>
-            <Button layoutX="475.0" layoutY="551.0" mnemonicParsing="false" onAction="#btnConfirmPushed" prefHeight="35.0" prefWidth="120.0" text="%addButton" />
+        <Button layoutX="455.0" layoutY="60.0" mnemonicParsing="false" onAction="#btnAddBrandPushed" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #ffffff;">
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../image/plus.jpg" />
+                    </image>
+                </ImageView>
+            </graphic></Button>
+        <Button fx:id="buttonAddModel" layoutX="455.0" layoutY="104.0" mnemonicParsing="false" onAction="#btnAddModelPushed" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #ffffff;">
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../image/plus.jpg" />
+                    </image>
+                </ImageView>
+            </graphic></Button>
+        <Button fx:id="buttonAddColor" layoutX="455.0" layoutY="424.0" mnemonicParsing="false" onAction="#btnAddColorPushed" prefHeight="35.0" prefWidth="35.0" style="-fx-background-color: #ffffff;">
+            <graphic>
+                <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../image/plus.jpg" />
+                    </image>
+                </ImageView>
+            </graphic></Button>
+        <Button layoutX="466.0" layoutY="551.0" mnemonicParsing="false" onAction="#btnConfirmPushed" prefHeight="35.0" prefWidth="124.0" text="%addButton" />
     </children>
 </AnchorPane>

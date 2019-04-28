@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="867.0" prefWidth="701.0" stylesheets="@../../our.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controller.employee.EmployeeSearchCustomerController">
+<AnchorPane fx:id="rootPane" prefHeight="867.0" prefWidth="700.0" stylesheets="@../../our.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controller.employee.EmployeeSearchCustomerController">
     <children>
-        <VBox prefHeight="80.0" prefWidth="690.0">
+        <VBox prefHeight="80.0" prefWidth="700.0">
             <children>
                 <HBox prefHeight="38.0" prefWidth="600.0">
                     <children>
@@ -71,7 +71,7 @@
                 </HBox>
             </children>
         </VBox>
-        <VBox layoutX="70.0" layoutY="137.0" prefHeight="590.0" prefWidth="578.0">
+        <VBox layoutX="61.0" layoutY="139.0" prefHeight="590.0" prefWidth="578.0">
             <children>
                 <TableView fx:id="tableView" prefHeight="635.0" prefWidth="578.0">
                     <placeholder>
@@ -86,27 +86,27 @@
                     <contextMenu>
                         <ContextMenu>
                             <items>
-                                <MenuItem mnemonicParsing="false" onAction="#detailMenuSelected" text="Zobraziť detail" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteMenuSelected" text="Zmazať" />
-                        <MenuItem mnemonicParsing="false" onAction="#createContractMenuSelected" text="Vytvoriť zmluvu" />
+                                <MenuItem mnemonicParsing="false" onAction="#detailMenuSelected" text="%tableOptionShowDetail" />
+                                <MenuItem mnemonicParsing="false" onAction="#deleteMenuSelected" text="%tableOptionDelete" />
+                                <MenuItem mnemonicParsing="false" onAction="#createContractMenuSelected" text="%tableOptionCreateAgreement" />
                             </items>
                         </ContextMenu>
                     </contextMenu>
                 </TableView>
             </children>
         </VBox>
-        <Button fx:id="buttonNextData" layoutX="366.0" layoutY="739.0" mnemonicParsing="false" onAction="#loadNext" prefHeight="35.0" prefWidth="28.0" text="-&gt;" />
-        <Button fx:id="buttonPreviousData" layoutX="332.0" layoutY="739.0" mnemonicParsing="false" onAction="#loadPrevious" text="&lt;-" />
-        <TextField fx:id="textFieldSearchInTable" layoutX="71.0" layoutY="739.0" onKeyReleased="#searchInTable" prefHeight="30.0" prefWidth="215.0" promptText="%filterFoundItemsText" />
-        <TextField fx:id="textFieldSearchInDatabase" layoutX="432.0" layoutY="739.0" onKeyReleased="#searchInTable" prefHeight="31.0" prefWidth="215.0" promptText="%searchInDatabaseBorrowerText" />
-        <Button layoutX="432.0" layoutY="780.0" mnemonicParsing="false" onAction="#buttonSearchInDatabasePushed" prefHeight="35.0" prefWidth="215.0" text="%searchInDatabaseButton" />
-        <Button layoutX="71.0" layoutY="780.0" mnemonicParsing="false" onAction="#buttonDisplayDataPushed" text="%showDataButton" />
-        <Label fx:id="labelOffset" alignment="CENTER" layoutX="280.0" layoutY="776.0" prefHeight="21.0" prefWidth="160.0" text="Label" />
-        <JFXProgressBar fx:id="progressBar" layoutX="440.0" layoutY="822.0" />
-      <Label layoutX="177.0" layoutY="80.0" text="%listOfBorrowersLabel" textFill="WHITE">
-         <font>
-            <Font size="34.0" />
-         </font>
-      </Label>
+        <Button fx:id="buttonNextData" layoutX="357.0" layoutY="741.0" mnemonicParsing="false" onAction="#loadNext" prefHeight="35.0" prefWidth="28.0" text="-&gt;" />
+        <Button fx:id="buttonPreviousData" layoutX="323.0" layoutY="741.0" mnemonicParsing="false" onAction="#loadPrevious" text="&lt;-" />
+        <TextField fx:id="textFieldSearchInTable" layoutX="62.0" layoutY="741.0" onKeyReleased="#searchInTable" prefHeight="30.0" prefWidth="215.0" promptText="%filterFoundItemsText" />
+        <TextField fx:id="textFieldSearchInDatabase" layoutX="423.0" layoutY="741.0" onKeyReleased="#searchInTable" prefHeight="31.0" prefWidth="215.0" promptText="%searchInDatabaseBorrowerText" />
+        <Button layoutX="423.0" layoutY="782.0" mnemonicParsing="false" onAction="#buttonSearchInDatabasePushed" prefHeight="35.0" prefWidth="215.0" text="%searchInDatabaseButton" />
+        <Button layoutX="62.0" layoutY="782.0" mnemonicParsing="false" onAction="#buttonDisplayDataPushed" text="%showDataButton" />
+        <Label fx:id="labelOffset" alignment="CENTER" layoutX="271.0" layoutY="782.0" prefHeight="21.0" prefWidth="160.0" text="Label" />
+        <JFXProgressBar fx:id="progressBar" layoutX="431.0" layoutY="824.0" />
+        <Label layoutX="181.0" layoutY="80.0" text="%listOfBorrowersLabel" textFill="WHITE">
+            <font>
+                <Font size="34.0" />
+            </font>
+        </Label>
     </children>
 </AnchorPane>

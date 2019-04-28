@@ -87,18 +87,18 @@
                <placeholder>
                   <Label text="%noResultLabel" />
                </placeholder>
-              <columns>
-                <TableColumn fx:id="columnFirstName" prefWidth="138.0" text="%collumnFirstName" />
-                <TableColumn fx:id="columnLastName" prefWidth="132.0" text="%collumnLastName" />
+               <columns>
+                  <TableColumn fx:id="columnFirstName" prefWidth="138.0" text="%collumnFirstName" />
+                  <TableColumn fx:id="columnLastName" prefWidth="132.0" text="%collumnLastName" />
                   <TableColumn fx:id="columnLogin" prefWidth="145.0" text="%collumnLogin" />
                   <TableColumn fx:id="columnPhone" prefWidth="185.0" text="%collumnPhone" />
-              </columns>
+               </columns>
                <contextMenu>
                   <ContextMenu>
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#detailMenuSelected" text="Zobraziť detail" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteMenuSelected" text="Zmazať" />
-                    </items>
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#detailMenuSelected" text="%tableOptionShowDetail" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteMenuSelected" text="%tableOptionDelete" />
+                     </items>
                   </ContextMenu>
                </contextMenu>
             </TableView>
