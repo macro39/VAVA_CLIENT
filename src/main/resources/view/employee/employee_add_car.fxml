@@ -50,7 +50,7 @@
                 </VBox>
                 <VBox prefHeight="460.0" prefWidth="187.0" spacing="5.0">
                     <children>
-                        <JFXComboBox fx:id="comboBoxBrand" onAction="#comboBoxBrandSelected" prefHeight="35.0" prefWidth="233.0" />
+                        <JFXComboBox fx:id="comboBoxBrand" onAction="#comboBoxBrandSelected" onMouseClicked="#comboBoxBrandClicked" prefHeight="35.0" prefWidth="233.0" />
                         <JFXComboBox fx:id="comboBoxModel" onAction="#comboBoxModelSelected" onMouseClicked="#comboBoxModelClicked" prefHeight="35.0" prefWidth="203.0" />
                         <JFXDatePicker fx:id="datePickerYear" editable="false" onAction="#datePickerDateSelected" prefHeight="39.0" prefWidth="201.0" />
                         <Spinner fx:id="spinnerMileage" prefHeight="35.0" prefWidth="185.0" />

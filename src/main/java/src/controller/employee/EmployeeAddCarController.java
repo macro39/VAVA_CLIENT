@@ -3,6 +3,9 @@ package src.controller.employee;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -286,12 +289,53 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
     }
 
     public void btnAddBrandPushed(ActionEvent actionEvent) {
+        ObservableList<String> itemsFromCombobox = FXCollections.observableArrayList(comboBoxBrand.getItems());
+
+        PopUpWindow popUpWindow = new PopUpWindow();
+        String newItem = popUpWindow.display(null,"brand","Zadaj značku: ", itemsFromCombobox);
+
+        if(newItem != null) {
+            comboBoxBrand.getItems().add(newItem);
+
+            comboBoxBrand.setValue(newItem);
+
+            showConfirm("Pridané!");
+        }
     }
 
     public void btnAddModelPushed(ActionEvent actionEvent) {
+
+        if (getBrand() == null) {
+            showError("Zadaj značku!");
+        }
+
+        ObservableList<String> itemsFromCombobox = FXCollections.observableArrayList(comboBoxModel.getItems());
+
+        PopUpWindow popUpWindow = new PopUpWindow();
+        String newItem = popUpWindow.display(getBrand(),"model","Zadaj model: ", itemsFromCombobox);
+
+        if(newItem != null) {
+            comboBoxModel.getItems().add(newItem);
+
+            comboBoxModel.setValue(newItem);
+
+            showConfirm("Pridané!");
+        }
     }
 
     public void btnAddColorPushed(ActionEvent actionEvent) {
+        ObservableList<String> itemsFromCombobox = FXCollections.observableArrayList(comboBoxColor.getItems());
+
+        PopUpWindow popUpWindow = new PopUpWindow();
+        String newItem = popUpWindow.display(null,"color","Zadaj farbu: ", itemsFromCombobox);
+
+        if(newItem != null) {
+            comboBoxColor.getItems().add(newItem);
+
+            comboBoxColor.setValue(newItem);
+
+            showConfirm("Pridané!");
+        }
     }
 
     public void comboBoxModelClicked(MouseEvent mouseEvent) {
@@ -366,5 +410,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
 
     public void btnBackPushed(ActionEvent actionEvent) {
         backToMenu(rootPane,employee,actualLanguage);
+    }
+
+    public void comboBoxBrandClicked(MouseEvent mouseEvent) {
+        comboBoxModel.getItems().clear();
+        comboBoxModel.getSelectionModel().clearSelection();
     }
 }

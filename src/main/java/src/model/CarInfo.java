@@ -7,10 +7,10 @@ public class CarInfo {
     private Integer carInfoID;
 
     @JsonProperty("brand")
-    private String brand;
+    private String brand = "Audi";
 
     @JsonProperty("model")
-    private String model;
+    private String model = "Q7";
 
     @JsonProperty("bodyStyle")
     private String bodyStyle = "Sedan";
