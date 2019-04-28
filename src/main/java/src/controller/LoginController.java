@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -19,6 +20,7 @@ import src.controller.admin.AdminMenuController;
 import src.controller.employee.EmployeeMenuController;
 import src.model.Employee;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
@@ -143,7 +145,7 @@ public class LoginController extends Notification implements Initializable {
 
     public void buttonSKlangPushed(ActionEvent actionEvent) {
 
-        if(actualLanguage.getLocale().toString().equals("en_EN")) {
+        if(!actualLanguage.getLocale().toString().equals("sk_SK")) {
             actualLanguage = ResourceBundle.getBundle("lang",new Locale("sk","SK"));
 
             changeLanguageInGUI();
@@ -152,8 +154,32 @@ public class LoginController extends Notification implements Initializable {
 
     public void buttonENlangPushed(ActionEvent actionEvent) {
 
-        if(actualLanguage.getLocale().toString().equals("sk_SK")) {
+        if(!actualLanguage.getLocale().toString().equals("en_EN")) {
             actualLanguage = ResourceBundle.getBundle("lang",new Locale("en","EN"));
+
+            changeLanguageInGUI();
+        }
+    }
+
+    public void buttonDElangPushed(ActionEvent actionEvent) {
+        if(!actualLanguage.getLocale().toString().equals("de_DE")) {
+            actualLanguage = ResourceBundle.getBundle("lang",new Locale("de","DE"));
+
+            changeLanguageInGUI();
+        }
+    }
+
+    public void buttonESlangPushed(ActionEvent actionEvent) {
+        if(!actualLanguage.getLocale().toString().equals("es_ES")) {
+            actualLanguage = ResourceBundle.getBundle("lang",new Locale("es","es"));
+
+            changeLanguageInGUI();
+        }
+    }
+
+    public void buttonJPlangPushed(ActionEvent actionEvent) {
+        if(!actualLanguage.getLocale().toString().equals("jp_JP")) {
+            actualLanguage = ResourceBundle.getBundle("lang",new Locale("jp","JP"));
 
             changeLanguageInGUI();
         }

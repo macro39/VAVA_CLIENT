@@ -14,41 +14,49 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
+import org.controlsfx.control.textfield.TextFields;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
+import src.controller.Notification;
 import src.model.Car;
+import src.model.CarRepair;
 
 import java.net.URL;
 import java.sql.Date;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
 
-public class EmployeeCarDetailController implements Initializable {
+public class EmployeeCarDetailController extends Notification implements Initializable {
 
     // noneditable attributes
     @FXML
     private TableView<Car> tableNonEditable;
-    @FXML private TableColumn<Car, String> collumnVIN;
-    @FXML private TableColumn<Car, String> collumnYearOfProduction;
-    @FXML private TableColumn<Car, String> collumnBrand;
-    @FXML private TableColumn<Car, String> collumnModel;
-    @FXML private TableColumn<Car, String> collumnBodyStyle;
-    @FXML private TableColumn<Car, Double> collumnEngineCapacity;
-    @FXML private TableColumn<Car, String> collumnGearBox;
-    @FXML private TableColumn<Car, String> collumnsFuel;
-    @FXML private TableColumn<Car, String> collumnColor;
+    @FXML private TableColumn<Car, String> columnVIN;
+    @FXML private TableColumn<Car, String> columnYearOfProduction;
+    @FXML private TableColumn<Car, String> columnBrand;
+    @FXML private TableColumn<Car, String> columnModel;
+    @FXML private TableColumn<Car, String> columnBodyStyle;
+    @FXML private TableColumn<Car, Double> columnEngineCapacity;
+    @FXML private TableColumn<Car, String> columnGearBox;
+    @FXML private TableColumn<Car, String> columnFuel;
+    @FXML private TableColumn<Car, String> columnColor;
 
     // editable attributes
     @FXML private TableView<Car> tableEditable;
-    @FXML private TableColumn<Car, String> collumnSPZ;
-    @FXML private TableColumn<Car, Integer> collumnMileAge;
-    @FXML private TableColumn<Car, Integer> collumnEnginePower;
-    @FXML private TableColumn<Car, Double> collumnPricePerDay;
+    @FXML private TableColumn<Car, String> columnSPZ;
+    @FXML private TableColumn<Car, Integer> columnMileAge;
+    @FXML private TableColumn<Car, Integer> columnEnginePower;
+    @FXML private TableColumn<Car, Double> columnPricePerDay;
 
     // service record table
-//    @FXML private TableView<ServiceRecord> tableServiceRecords;
-//    @FXML private TableColumn<ServiceRecord, String> collumnServisName;
-//    @FXML private TableColumn<ServiceRecord, String> collumnServisLocation;
-//    @FXML private TableColumn<ServiceRecord, String> collumnTypeOfRepair;
-//    @FXML private TableColumn<ServiceRecord, Date> collumnDateOfService;
-//    @FXML private TableColumn<ServiceRecord, Float> collumnsPriceOfService;
+    @FXML private TableView<CarRepair> tableServiceRecords;
+    @FXML private TableColumn<CarRepair, String> columnServiceName;
+    @FXML private TableColumn<CarRepair, String> columnServiceLocation;
+    @FXML private TableColumn<CarRepair, String> columnTypeOfRepair;
+    @FXML private TableColumn<CarRepair, Date> columnDateOfService;
+    @FXML private TableColumn<CarRepair, Float> columnPriceOfService;
 
     @FXML private Label labelNumberOfServices;
 
@@ -63,9 +71,6 @@ public class EmployeeCarDetailController implements Initializable {
     // name and loction of all services
     ObservableList<String> allServices = null;
 
-    // type of repair
-    ObservableList<String> allRepairs = null;
-
     private Boolean dataChanged = false;
 
     private ResourceBundle actualLanguage;
@@ -75,34 +80,34 @@ public class EmployeeCarDetailController implements Initializable {
         actualLanguage = resources;
 
         // set noneditable table collumns
-        collumnVIN.setCellValueFactory(new PropertyValueFactory<>("carVIN"));
-        collumnYearOfProduction.setCellValueFactory(new PropertyValueFactory<>("yearOfProduction"));
-        collumnBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
-        collumnModel.setCellValueFactory(new PropertyValueFactory<>("model"));
-        collumnBodyStyle.setCellValueFactory(new PropertyValueFactory<>("bodyStyle"));
-        collumnEngineCapacity.setCellValueFactory(new PropertyValueFactory<>("engineCapacity"));
-        collumnGearBox.setCellValueFactory(new PropertyValueFactory<>("gearBox"));
-        collumnsFuel.setCellValueFactory(new PropertyValueFactory<>("fuel"));
-        collumnColor.setCellValueFactory(new PropertyValueFactory<>("color"));
+        columnVIN.setCellValueFactory(new PropertyValueFactory<>("carVIN"));
+        columnYearOfProduction.setCellValueFactory(new PropertyValueFactory<>("yearOfProduction"));
+        columnBrand.setCellValueFactory(new PropertyValueFactory<>("brand"));
+        columnModel.setCellValueFactory(new PropertyValueFactory<>("model"));
+        columnBodyStyle.setCellValueFactory(new PropertyValueFactory<>("bodyStyle"));
+        columnEngineCapacity.setCellValueFactory(new PropertyValueFactory<>("engineCapacity"));
+        columnGearBox.setCellValueFactory(new PropertyValueFactory<>("gearBox"));
+        columnFuel.setCellValueFactory(new PropertyValueFactory<>("fuel"));
+        columnColor.setCellValueFactory(new PropertyValueFactory<>("color"));
 
         // set editable table collumns
-        collumnSPZ.setCellValueFactory(new PropertyValueFactory<>("carSPZ"));
-        collumnMileAge.setCellValueFactory(new PropertyValueFactory<>("mileAge"));
-        collumnEnginePower.setCellValueFactory(new PropertyValueFactory<>("enginePower"));
-        collumnPricePerDay.setCellValueFactory(new PropertyValueFactory<>("pricePerDay"));
+        columnSPZ.setCellValueFactory(new PropertyValueFactory<>("carSPZ"));
+        columnMileAge.setCellValueFactory(new PropertyValueFactory<>("mileAge"));
+        columnEnginePower.setCellValueFactory(new PropertyValueFactory<>("enginePower"));
+        columnPricePerDay.setCellValueFactory(new PropertyValueFactory<>("pricePerDay"));
 
         tableEditable.setEditable(true);
-        collumnSPZ.setCellFactory(TextFieldTableCell.forTableColumn());
-        collumnMileAge.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        collumnEnginePower.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
-        collumnPricePerDay.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
+        columnSPZ.setCellFactory(TextFieldTableCell.forTableColumn());
+        columnMileAge.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        columnEnginePower.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        columnPricePerDay.setCellFactory(TextFieldTableCell.forTableColumn(new DoubleStringConverter()));
 
         // set service records table collumns
-//        collumnServisName.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
-//        collumnServisLocation.setCellValueFactory(new PropertyValueFactory<>("serviceLocation"));
-//        collumnTypeOfRepair.setCellValueFactory(new PropertyValueFactory<>("typeOfRepair"));
-//        collumnDateOfService.setCellValueFactory(new PropertyValueFactory<>("dateOfService"));
-//        collumnsPriceOfService.setCellValueFactory(new PropertyValueFactory<>("servicePrice"));
+        columnServiceName.setCellValueFactory(new PropertyValueFactory<>("serviceName"));
+        columnServiceLocation.setCellValueFactory(new PropertyValueFactory<>("serviceLocation"));
+        columnTypeOfRepair.setCellValueFactory(new PropertyValueFactory<>("typeOfRepair"));
+        columnDateOfService.setCellValueFactory(new PropertyValueFactory<>("dateOfService"));
+        columnPriceOfService.setCellValueFactory(new PropertyValueFactory<>("price"));
     }
 
     public void setCar(Car car) {
@@ -110,25 +115,38 @@ public class EmployeeCarDetailController implements Initializable {
 
         tableNonEditable.setItems(FXCollections.observableArrayList(car));
         tableEditable.setItems(FXCollections.observableArrayList(car));
-//        tableServiceRecords.setItems(car.getServiceRecords());
+        tableServiceRecords.setItems(FXCollections.observableArrayList(car.getCarRepairs()));
 
         setServiceNamesAndLocations();
-        setRepairTypes();
         setNumberOfServices();
     }
 
     public void setServiceNamesAndLocations() {
-//        EnumManager enumManager = new EnumManager();
-//        allServices = enumManager.getServiceNamesAndLocations();
-//
-//        TextFields.bindAutoCompletion(textFieldServiceName,allServices);
-    }
 
-    public void setRepairTypes() {
-//        EnumManager enumManager = new EnumManager();
-//        allRepairs = enumManager.getTypeOfHarm();
-//
-//        TextFields.bindAutoCompletion(textFieldTypeOfRepair,allRepairs);
+        String resourceURL = "http://localhost:8080/api/getServices/";
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        //headers.set("Content-Type","application/json");
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<List<String>> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<List<String>> result;
+
+        try {
+            result = restTemplate.exchange(resourceURL, HttpMethod.GET, entity,
+                    new ParameterizedTypeReference<List<String>>() {
+            });
+        } catch (Exception e) {
+            //LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
+            showError(actualLanguage.getString("notificationNoResponseServer"));
+            return;
+        }
+
+        allServices = FXCollections.observableArrayList(result.getBody());
+
+        TextFields.bindAutoCompletion(textFieldServiceName,allServices);
     }
 
     public void setEditation(Boolean editationEnabled) {
@@ -166,7 +184,7 @@ public class EmployeeCarDetailController implements Initializable {
     }
 
     public void setNumberOfServices() {
-//        labelNumberOfServices.setText("Počet záznamov: " + car.getServiceRecords().size());
+        labelNumberOfServices.setText("Počet záznamov: " + car.getCarRepairs().size());
     }
 
     public Boolean checkFieldsBeforeSubmittingNewRepair() {
@@ -205,5 +223,40 @@ public class EmployeeCarDetailController implements Initializable {
     }
 
     public void buttonAddNewServiceRecord(ActionEvent actionEvent) {
+        if(checkFieldsBeforeSubmittingNewRepair() || !allServices.contains(getServiceName())) {
+            showError("Nesprávne vyplnené údaje!");
+        } else {
+
+            String nameAndLocation[] = getServiceName().split(", ");
+
+            car.addRepair(new CarRepair(getTypeOfRepair(),getDateOfService(),
+                    getPriceOfService(),nameAndLocation[0],nameAndLocation[1]));
+
+            String resourceURL = "http://localhost:8080/api/addRepair/";
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+            //headers.set("Content-Type","application/json");
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            HttpEntity<Car> entity = new HttpEntity<>(car,headers);
+
+            ResponseEntity<Boolean> result;
+
+            try {
+                result = restTemplate.exchange(resourceURL, HttpMethod.POST, entity, Boolean.class);
+            } catch (Exception e) {
+                //LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
+                showError(actualLanguage.getString("notificationNoResponseServer"));
+                return;
+            }
+
+            showConfirm("Záznam o servisovaní bol úspešne pridaný!");
+
+            removeTypedInfo();
+
+            tableServiceRecords.setItems(FXCollections.observableArrayList(car.getCarRepairs()));
+            setNumberOfServices();
+        }
     }
 }

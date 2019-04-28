@@ -386,6 +386,10 @@ public class AdminSearchEmployeeController extends Notification implements Initi
     }
 
     public void detailMenuSelected(ActionEvent actionEvent) {
+        if(tableView.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/admin/admin_employee_detail.fxml"), actualLanguage);
 
@@ -447,6 +451,10 @@ public class AdminSearchEmployeeController extends Notification implements Initi
     }
 
     public void deleteMenuSelected(ActionEvent actionEvent) {
+        if(tableView.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+
         Employee selectedEmployee = tableView.getSelectionModel().getSelectedItem();
 
         String resourceURL = "http://localhost:8080/api//employee/" + selectedEmployee.getEmployeeID();

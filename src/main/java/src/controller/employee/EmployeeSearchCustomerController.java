@@ -197,6 +197,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
     }
 
     public void detailMenuSelected(ActionEvent actionEvent) {
+        if(tableView.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/employee/employee_customer_detail.fxml"), actualLanguage);
 
@@ -258,6 +262,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
     }
 
     public void deleteMenuSelected(ActionEvent actionEvent) {
+        if(tableView.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+
         Customer selectedCustomer = tableView.getSelectionModel().getSelectedItem();
 
         String resourceURL = "http://localhost:8080/api//customer/" + selectedCustomer.getCustomerID();
@@ -282,6 +290,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
     }
 
     public void createContractMenuSelected(ActionEvent actionEvent) {
+        if(tableView.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+
     }
 
     public void searchInTable(KeyEvent keyEvent) {

@@ -13,15 +13,15 @@
    <children>
       <TableView fx:id="tableNonEditable" layoutX="21.0" layoutY="96.0" prefHeight="80.0" prefWidth="959.0">
         <columns>
-          <TableColumn fx:id="collumnVIN" prefWidth="142.0" text="%collumnVin" />
-            <TableColumn fx:id="collumnYearOfProduction" prefWidth="94.0" text="%collumnYearOfProduction" />
-            <TableColumn fx:id="collumnBrand" prefWidth="118.0" text="%collumnBrand" />
-            <TableColumn fx:id="collumnModel" prefWidth="99.0" text="%collumnModel" />
-            <TableColumn fx:id="collumnBodyStyle" prefWidth="100.0" text="%collumnType" />
-            <TableColumn fx:id="collumnEngineCapacity" prefWidth="127.0" text="%collumnEngineCapacity" />
-            <TableColumn fx:id="collumnGearBox" prefWidth="96.0" text="%collumnGearBox" />
-            <TableColumn fx:id="collumnsFuel" prefWidth="83.0" text="%collumnFuel" />
-            <TableColumn fx:id="collumnColor" prefWidth="86.0" text="%collumnColor" />
+          <TableColumn fx:id="columnVIN" prefWidth="142.0" text="%collumnVin" />
+            <TableColumn fx:id="columnYearOfProduction" prefWidth="94.0" text="%collumnYearOfProduction" />
+            <TableColumn fx:id="columnBrand" prefWidth="118.0" text="%collumnBrand" />
+            <TableColumn fx:id="columnModel" prefWidth="99.0" text="%collumnModel" />
+            <TableColumn fx:id="columnBodyStyle" prefWidth="100.0" text="%collumnType" />
+            <TableColumn fx:id="columnEngineCapacity" prefWidth="127.0" text="%collumnEngineCapacity" />
+            <TableColumn fx:id="columnGearBox" prefWidth="96.0" text="%collumnGearBox" />
+            <TableColumn fx:id="columnFuel" prefWidth="83.0" text="%collumnFuel" />
+            <TableColumn fx:id="columnColor" prefWidth="86.0" text="%collumnColor" />
         </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="344.0" layoutY="14.0" text="%vehicleDetailLabel" textFill="WHITE">
@@ -31,19 +31,19 @@
       </Label>
       <TableView fx:id="tableEditable" layoutX="150.0" layoutY="197.0" prefHeight="80.0" prefWidth="700.0">
         <columns>
-          <TableColumn fx:id="collumnSPZ" onEditCommit="#changeSPZCell" prefWidth="149.0" text="%collumnLicencePlate" />
-            <TableColumn fx:id="collumnMileAge" onEditCommit="#changeMileAgeCell" prefWidth="150.0" text="%collumnMileage" />
-            <TableColumn fx:id="collumnEnginePower" minWidth="0.0" onEditCommit="#changeEnginePowerCell" prefWidth="194.0" text="%collumnEnginePower" />
-          <TableColumn fx:id="collumnPricePerDay" minWidth="0.0" onEditCommit="#changePricePerDayCell" prefWidth="195.0" text="%collumnPrice" />
+          <TableColumn fx:id="columnSPZ" onEditCommit="#changeSPZCell" prefWidth="149.0" text="%collumnLicencePlate" />
+            <TableColumn fx:id="columnMileAge" onEditCommit="#changeMileAgeCell" prefWidth="150.0" text="%collumnMileage" />
+            <TableColumn fx:id="columnEnginePower" minWidth="0.0" onEditCommit="#changeEnginePowerCell" prefWidth="194.0" text="%collumnEnginePower" />
+          <TableColumn fx:id="columnPricePerDay" minWidth="0.0" onEditCommit="#changePricePerDayCell" prefWidth="195.0" text="%collumnPrice" />
         </columns>
       </TableView>
       <TableView fx:id="tableServiceRecords" layoutX="75.0" layoutY="370.0" prefHeight="200.0" prefWidth="676.0">
         <columns>
-          <TableColumn fx:id="collumnServisName" prefWidth="181.0" text="Servis" />
-          <TableColumn fx:id="collumnServisLocation" minWidth="0.0" prefWidth="167.0" text="Adresa" />
-            <TableColumn fx:id="collumnTypeOfRepair" prefWidth="149.0" text="Typ opravy" />
-            <TableColumn fx:id="collumnDateOfService" prefWidth="96.0" text="Dátum" />
-            <TableColumn fx:id="collumnsPriceOfService" prefWidth="68.0" text="Cena (€)" />
+          <TableColumn fx:id="columnServiceName" prefWidth="181.0" text="Servis" />
+          <TableColumn fx:id="columnServiceLocation" minWidth="0.0" prefWidth="167.0" text="Adresa" />
+            <TableColumn fx:id="columnTypeOfRepair" prefWidth="149.0" text="Typ opravy" />
+            <TableColumn fx:id="columnDateOfService" prefWidth="96.0" text="Dátum" />
+            <TableColumn fx:id="columnPriceOfService" prefWidth="68.0" text="Cena (€)" />
         </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="383.0" layoutY="306.0" prefHeight="51.0" prefWidth="234.0" text="Opravy vozidla" textFill="WHITE">

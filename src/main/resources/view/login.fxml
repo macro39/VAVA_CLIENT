@@ -37,28 +37,59 @@
                 </HBox>
             </children>
         </VBox>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="206.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="206.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../image/logo.png" />
          </image>
       </ImageView>
-      <Button layoutX="14.0" layoutY="536.0" mnemonicParsing="false" onAction="#buttonSKlangPushed" prefHeight="50.0" prefWidth="50.0">
-         <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/flagSK.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="83.0" layoutY="536.0" mnemonicParsing="false" onAction="#buttonENlangPushed" prefHeight="50.0" prefWidth="50.0">
-         <graphic>
-            <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/flagEN.gif" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
+      <HBox alignment="CENTER" layoutX="131.0" layoutY="533.0" prefHeight="53.0" prefWidth="350.0" spacing="10.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#buttonSKlangPushed" prefHeight="50.0" prefWidth="50.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/flagSK.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#buttonENlangPushed" prefHeight="50.0" prefWidth="60.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/flagEN.gif" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#buttonDElangPushed" prefHeight="50.0" prefWidth="60.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/flagDE.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#buttonESlangPushed" prefHeight="50.0" prefWidth="60.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/flagES.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button mnemonicParsing="false" onAction="#buttonJPlangPushed" prefHeight="50.0" prefWidth="60.0">
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/flagJP.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
     </children>
 </AnchorPane>

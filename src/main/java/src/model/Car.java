@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 public class Car {
     @JsonProperty("carVIN")
@@ -20,6 +21,9 @@ public class Car {
 
     @JsonProperty("carSPZ")
     private String carSPZ;
+
+    @JsonProperty("carRepairs")
+    private Set<CarRepair> carRepairs;
 
     public Car() {
     }
@@ -152,4 +156,19 @@ public class Car {
     public void setPricePerDay(Double pricePerDay) {
         this.carInfo.setPricePerDay(pricePerDay);
     }
+
+    public Set<CarRepair> getCarRepairs() {
+        return carRepairs;
+    }
+
+    public void setCarRepairs(Set<CarRepair> carRepairs) {
+        this.carRepairs = carRepairs;
+    }
+
+    public void addRepair(CarRepair carRepair) {
+        this.carRepairs.add(carRepair);
+        return;
+    }
+
+
 }

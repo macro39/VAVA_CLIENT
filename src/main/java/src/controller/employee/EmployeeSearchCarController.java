@@ -200,6 +200,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
     // menu
 
     public void detailMenuSelected(ActionEvent actionEvent) {
+        if(tableView.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+
         FXMLLoader loader = new FXMLLoader(
                 getClass().getResource("/view/employee/employee_car_detail.fxml"), actualLanguage);
 
@@ -262,6 +266,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
     }
 
     public void deleteMenuSelected(ActionEvent actionEvent) {
+        if(tableView.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+
         Car selectedCar = tableView.getSelectionModel().getSelectedItem();
 
         String resourceURL = "http://localhost:8080/api/car/" + selectedCar.getCarVIN();
@@ -286,6 +294,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
     }
 
     public void createContractMenuSelected(ActionEvent actionEvent) {
+        if(tableView.getSelectionModel().getSelectedItem() == null) {
+            return;
+        }
+
         ////////////////////
         ////////////////////
         ////////////////////
