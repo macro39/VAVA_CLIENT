@@ -22,6 +22,7 @@ import org.controlsfx.control.Notifications;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
+import src.model.Car;
 import src.model.Customer;
 import src.model.Employee;
 
@@ -63,7 +64,7 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
 
     private Employee employee;
 
-    //private Car car = null;
+    private Car car = null;
     private String carVIN = null;
 
     private Integer offSet = 0;
@@ -109,13 +110,13 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         progressBar.setVisible(false);
     }
 
-//    public void setCar(Car car) {
-//        this.car = car;
-//    }
-//
-//    public void setCarVIN(String carVIN) {
-//        this.carVIN = carVIN;
-//    }
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public void setCarVIN(String carVIN) {
+       this.carVIN = carVIN;
+    }
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
@@ -294,6 +295,41 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
             return;
         }
 
+        backToCreateContract(true);
+    }
+
+
+    public void backToCreateContract(Boolean isPersonSelected) {
+        Parent parent = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/employee/employee_create_contract.fxml"),actualLanguage);
+            parent = (Parent) loader.load();
+
+            EmployeeCreateContractController employeeCreateContractController= loader.getController();
+            employeeCreateContractController.setEmployee(employee);
+
+            if(isPersonSelected) {
+                employeeCreateContractController.setCustomer(tableView.getSelectionModel().getSelectedItem());
+            }
+
+            if(car != null) {
+                employeeCreateContractController.setCar(car);
+                employeeCreateContractController.setCarVin();
+            } else if(carVIN != null) {
+                employeeCreateContractController.setSelectedCarVIN(carVIN);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene newScene = new Scene(parent);
+
+        //This line gets the Stage information
+        Stage currentStage = (Stage) rootPane.getScene().getWindow();
+
+        currentStage.setScene(newScene);
+        currentStage.show();
     }
 
     public void searchInTable(KeyEvent keyEvent) {
@@ -506,6 +542,11 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
     }
 
     public void btnBackPushed(ActionEvent actionEvent) {
+        if(openedFromContractScene) {
+            backToCreateContract(false);
+            return;
+        }
+
         Parent parent = null;
         try {
             FXMLLoader loader = new FXMLLoader(

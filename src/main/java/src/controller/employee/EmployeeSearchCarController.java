@@ -298,9 +298,7 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
             return;
         }
 
-        ////////////////////
-        ////////////////////
-        ////////////////////
+        backToCreateContract(true);
     }
 
     public void searchInTable(KeyEvent keyEvent) {
@@ -508,6 +506,12 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
 
     public void btnBackPushed(ActionEvent actionEvent) {
         Parent parent = null;
+
+        if(openedFromContractScene) {
+            backToCreateContract(false);
+            return;
+        }
+
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("/view/employee/employee_search_menu.fxml"), actualLanguage);
@@ -516,6 +520,41 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
             EmployeeSearchMenuController employeeSearchMenuController = loader.getController();
             employeeSearchMenuController.setEmployee(employee);
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene newScene = new Scene(parent);
+
+        //This line gets the Stage information
+        Stage currentStage = (Stage) rootPane.getScene().getWindow();
+
+        currentStage.setScene(newScene);
+        currentStage.show();
+    }
+
+    public void backToCreateContract(Boolean isCarSelected) {
+        Parent parent = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/employee/employee_create_contract.fxml"),actualLanguage);
+            parent = (Parent) loader.load();
+
+            EmployeeCreateContractController employeeCreateContractController = loader.getController();
+            employeeCreateContractController.setEmployee(employee);
+
+            if(isCarSelected) {
+                Car selectedCar = tableView.getSelectionModel().getSelectedItem();
+
+                employeeCreateContractController.setCar(selectedCar);
+            }
+
+            if(customer != null) {
+                employeeCreateContractController.setCustomer(customer);
+                employeeCreateContractController.setCustomerID();
+            } else if (customerID != null) {
+                employeeCreateContractController.setSelectedCustomerID(customerID);
+            }
 
         } catch (IOException e) {
             e.printStackTrace();

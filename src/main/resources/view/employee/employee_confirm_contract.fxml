@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" prefHeight="650.0" prefWidth="800.0" stylesheets="@../../our.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controller.employee.EmployeeConfirmContractController">
+   <children>
+      <Label alignment="CENTER" layoutX="111.0" layoutY="14.0" prefHeight="42.0" prefWidth="577.0" text="%borrowedVehicleAgreementLabel" textFill="WHITE">
+         <font>
+            <Font name="Lucida Console" size="25.0" />
+         </font>
+      </Label>
+      <VBox layoutX="400.0" layoutY="63.0" prefHeight="280.0" prefWidth="400.0">
+         <children>
+            <HBox prefHeight="42.0" prefWidth="250.0">
+               <children>
+                  <Label prefHeight="42.0" prefWidth="299.0" text="%borrowerInformationLabel" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="Lucida Console" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="235.0" prefWidth="278.0">
+               <children>
+                  <VBox prefHeight="235.0" prefWidth="135.0" spacing="3.0">
+                     <children>
+                        <Label prefHeight="35.0" prefWidth="125.0" text="%firstNameLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="125.0" text="%lastNameLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="125.0" text="%idText" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="125.0" text="%adressLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="125.0" text="%bankAccountLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="125.0" text="%phoneLabel" textFill="WHITE" underline="true" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="235.0" prefWidth="260.0" spacing="3.0">
+                     <children>
+                        <Label fx:id="labelFirstName" prefHeight="35.0" prefWidth="260.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelLastName" prefHeight="35.0" prefWidth="260.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelCustomerId" prefHeight="35.0" prefWidth="260.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelAdress" prefHeight="35.0" prefWidth="260.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelBankAccount" prefHeight="35.0" prefWidth="260.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelCustomerPhone" prefHeight="35.0" prefWidth="260.0" text="Label" textFill="WHITE" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="9.0" layoutY="65.0" prefHeight="520.0" prefWidth="390.0">
+         <children>
+            <HBox prefHeight="42.0" prefWidth="250.0">
+               <children>
+                  <Label prefHeight="39.0" prefWidth="300.0" text="%vehicleInformationLabel" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="Lucida Console" size="15.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="470.0" prefWidth="250.0">
+               <children>
+                  <VBox prefHeight="470.0" prefWidth="140.0" spacing="3.0">
+                     <children>
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%vinLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%licencePlateLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%brandLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%modelLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%yearOfProductionLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%mileageLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%fuelLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%engineCapacityLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%enginePowerLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%gearBoxLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%bodyStyleLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%colorLabel" textFill="WHITE" underline="true" />
+                        <Label prefHeight="35.0" prefWidth="145.0" text="%pricePerDayLabel" textFill="WHITE" underline="true" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="467.0" prefWidth="240.0" spacing="3.0">
+                     <children>
+                        <Label fx:id="labelVIN" prefHeight="33.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelSPZ" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelBrand" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelModel" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelYear" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelMileage" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelFuel" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelEngineCapacity" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelEnginePower" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelGearBox" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelBodyStyle" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelColor" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                        <Label fx:id="labelPrice" prefHeight="35.0" prefWidth="240.0" text="Label" textFill="WHITE" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="399.0" layoutY="343.0" prefHeight="203.0" prefWidth="400.0">
+         <children>
+            <HBox prefHeight="40.0" prefWidth="300.0">
+               <children>
+                  <Label prefHeight="40.0" prefWidth="135.0" text="%dealerLabel" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="Lucida Console" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelEmployeeFirstName" prefHeight="40.0" prefWidth="260.0" text="Label" textFill="WHITE" />
+               </children>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="300.0">
+               <children>
+                  <Label fx:id="labelEmployeeLastName" prefHeight="40.0" prefWidth="265.0" text="Label" textFill="WHITE" />
+               </children>
+            </HBox>
+            <HBox alignment="TOP_RIGHT" prefHeight="40.0" prefWidth="300.0">
+               <children>
+                  <Label fx:id="labelDateFromTo" prefHeight="40.0" prefWidth="400.0" text="Label" textFill="WHITE" />
+               </children>
+            </HBox>
+            <HBox prefHeight="40.0" prefWidth="300.0">
+               <children>
+                  <Label prefHeight="40.0" prefWidth="135.0" text="%dayOfCreationLabel" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="Lucida Console" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelDateOfContract" prefHeight="40.0" prefWidth="260.0" text="Label" textFill="WHITE" />
+               </children>
+            </HBox>
+            <HBox prefHeight="40.0" prefWidth="300.0">
+               <children>
+                  <Label prefHeight="40.0" prefWidth="135.0" text="%totalPriceLabel" textFill="WHITE" underline="true">
+                     <font>
+                        <Font name="Lucida Console" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="labelTotalPrice" prefHeight="40.0" prefWidth="260.0" text="Label" textFill="WHITE" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Button layoutX="545.0" layoutY="577.0" mnemonicParsing="false" onAction="#btnSubmitPushed" text="%createButton" />
+      <Button layoutX="742.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnBackPushed" text="%backButton" />
+   </children>
+</AnchorPane>

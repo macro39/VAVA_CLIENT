@@ -102,6 +102,25 @@ public class EmployeeMenuController implements Initializable {
     }
 
     public void btnCreateAgreement(ActionEvent actionEvent) {
+        Parent parent = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/view/employee/employee_create_contract.fxml"),actualLanguage);
+            parent = (Parent) loader.load();
+
+            EmployeeCreateContractController employeeCreateContractController= loader.getController();
+            employeeCreateContractController.setEmployee(employee);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene newScene = new Scene(parent);
+
+        //This line gets the Stage information
+        Stage currentStage = (Stage) rootPane.getScene().getWindow();
+
+        currentStage.setScene(newScene);
+        currentStage.show();
     }
 
     public void btnSearchingPushed(ActionEvent actionEvent) {
