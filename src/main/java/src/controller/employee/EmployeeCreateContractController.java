@@ -13,8 +13,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 import src.model.Car;
 import src.model.Contract;
 import src.model.Customer;
@@ -23,7 +21,6 @@ import src.model.Employee;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
@@ -217,16 +214,16 @@ public class EmployeeCreateContractController extends EmployeeBackToMenu impleme
             Parent parent;
             try {
                 FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("/view/employee/employee_confirm_contract.fxml"),
+                        getClass().getResource("/view/employee/employee_contract_detail.fxml"),
                         actualLanguage);
                 parent = (Parent) loader.load();
 
-                EmployeeConfirmContractController employeeConfirmContractController = loader.getController();
-                employeeConfirmContractController.setEmployee(employee);
-                employeeConfirmContractController.setContract(contract);
+                EmployeeContractDetailController employeeContractDetailController = loader.getController();
+                employeeContractDetailController.setEmployee(employee);
+                employeeContractDetailController.setContract(contract);
 
-                employeeConfirmContractController.setDateFROM(getDateFrom());
-                employeeConfirmContractController.setDateTO(getDateTo());
+                employeeContractDetailController.setDateFROM(getDateFrom());
+                employeeContractDetailController.setDateTO(getDateTo());
 
                 Task setLabels = new Task() {
                     @Override
@@ -239,7 +236,7 @@ public class EmployeeCreateContractController extends EmployeeBackToMenu impleme
                             @Override
                             public void run() {
                                 try{
-                                    employeeConfirmContractController.setAllLabels();
+                                    employeeContractDetailController.setAllLabels();
                                 } finally {
                                     latch.countDown();
                                 }

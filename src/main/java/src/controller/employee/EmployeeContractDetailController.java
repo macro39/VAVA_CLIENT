@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -21,10 +22,9 @@ import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 
-public class EmployeeConfirmContractController extends EmployeeBackToMenu implements Initializable {
+public class EmployeeContractDetailController extends EmployeeBackToMenu implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
     // labels for customer
     @FXML private Label labelFirstName;
@@ -49,6 +49,9 @@ public class EmployeeConfirmContractController extends EmployeeBackToMenu implem
     @FXML private Label labelColor;
     @FXML private Label labelPrice;
 
+    @FXML private Button buttonCreateContract;
+    @FXML private Button buttonBack;
+
     // labels for employee
     @FXML private Label labelEmployeeFirstName;
     @FXML private Label labelEmployeeLastName;
@@ -67,6 +70,8 @@ public class EmployeeConfirmContractController extends EmployeeBackToMenu implem
     private Employee employee;
 
     private ResourceBundle actualLanguage;
+
+    private Boolean isOpenedAsDetail = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -116,6 +121,14 @@ public class EmployeeConfirmContractController extends EmployeeBackToMenu implem
         setLabelBankAccount(contract.getCustomer().getBankAccount());
         setLabelCustomerPhone(contract.getCustomer().getPhone());
     }
+
+    public void setOpenedAsDetail(Boolean openedAsDetail) {
+        isOpenedAsDetail = openedAsDetail;
+
+        buttonBack.setVisible(false);
+        buttonCreateContract.setVisible(false);
+    }
+
     public void setDateFROM(Date dateFROM) {
         this.dateFROM = dateFROM;
     }

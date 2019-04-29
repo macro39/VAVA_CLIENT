@@ -2,6 +2,7 @@ package src.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Contract {
@@ -77,16 +78,18 @@ public class Contract {
         this.employee = employee;
     }
 
-    public Date getDateFrom() {
-        return dateFrom;
+    public String getDateFrom() {
+        String newFormat = new SimpleDateFormat("yyyy-MM-dd").format(dateFrom);
+        return  newFormat;
     }
 
     public void setDateFrom(Date dateFrom) {
         this.dateFrom = dateFrom;
     }
 
-    public Date getDateTo() {
-        return dateTo;
+    public String getDateTo() {
+        String newFormat = new SimpleDateFormat("yyyy-MM-dd").format(dateTo);
+        return  newFormat;
     }
 
     public void setDateTo(Date dateTo) {
@@ -101,11 +104,20 @@ public class Contract {
         this.price = price;
     }
 
-    public Date getDateOfCreating() {
-        return dateOfCreating;
+    public String getDateOfCreating() {
+        String newFormat = new SimpleDateFormat("yyyy-MM-dd").format(dateOfCreating);
+        return  newFormat;
     }
 
     public void setDateOfCreating(Date dateOfCreating) {
         this.dateOfCreating = dateOfCreating;
+    }
+
+    public String getCarVIN() {
+        return this.car.getCarVIN();
+    }
+
+    public String getCustomerID() {
+        return this.customer.getCustomerID();
     }
 }
