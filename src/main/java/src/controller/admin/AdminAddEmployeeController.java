@@ -138,11 +138,11 @@ public class AdminAddEmployeeController extends Notification implements Initiali
 
     public void btnAddEmployeePushed(ActionEvent actionEvent) {
         if(tooLongTextChecker()) {
-            showWarning("Príliš dlhé údaje. Max. veľkosť jedného údaju je 254 znakov!");
+            showWarning(actualLanguage.getString("notificationTooLongData"));
             return;
         }
         if(emptyFieldChecker()) {
-            showError("Vypíšte správne všetky údaje!");
+            showError(actualLanguage.getString("notificationBadEnterDate"));
             return;
         }
 
@@ -159,10 +159,10 @@ public class AdminAddEmployeeController extends Notification implements Initiali
         ResponseEntity<Boolean> result = restTemplate.exchange(resourceURL, HttpMethod.POST, entity, Boolean.class);
 
         if(result.getBody()) {
-            showConfirm("Konto zamestnanca bolo úspešne vytvorené!");
+            showConfirm(actualLanguage.getString("notificationAccountCreated"));
             backToMenu();
         } else {
-            showError("Zadaný login - " + getLogin() + " - už existuje!");
+            showError(actualLanguage.getString("notificationAlreadyExist"));
         }
     }
 

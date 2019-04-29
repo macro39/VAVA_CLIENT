@@ -212,7 +212,7 @@ public class AdminSearchEmployeeController extends Notification implements Initi
     public void buttonSearchInDatabasePushed(ActionEvent actionEvent) {
 
         if(getTextFieldSearchInDatabase().trim().isEmpty()) {
-            showError("Zadaj údaj pre vyhľadávanie!");
+            showError(actualLanguage.getString("notificationNoEnterData"));
             return;
         }
 
@@ -239,7 +239,7 @@ public class AdminSearchEmployeeController extends Notification implements Initi
 
             if(observableList.size() == 500) {
 
-                showInformation("Počet nájdených záznamov je väčší ako " + observableList.size() + ".");
+                showInformation(actualLanguage.getString("notificationFoundItemsAreMoreThan") + observableList.size() + ".");
 
                 buttonNextData.setDisable(false);
             } else {
@@ -432,7 +432,7 @@ public class AdminSearchEmployeeController extends Notification implements Initi
 
                 updateInfo.setOnSucceeded(event1 -> {
                     if(adminEmployeeDetailController.getDataChanged()) {
-                        showConfirm("Informácie boli úspešne aktualizované!");
+                        showConfirm(actualLanguage.getString("notificationUpdateRecord"));
                     }
 
                     tableView.refresh();
@@ -468,13 +468,13 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         ResponseEntity<Boolean> result = restTemplate.exchange(resourceURL, HttpMethod.DELETE, entity, Boolean.class);
 
         if(result.getBody()) {
-            showConfirm("Záznam bol úspešne odstránený!");
+            showConfirm(actualLanguage.getString("notificationDeleteRecord"));
 
             tableView.getItems().remove(selectedEmployee);
 
             setNewRangeOfDisplayedData();
         } else {
-            showError("Záznam sa nepodarilo odstrániť!");
+            showError(actualLanguage.getString("notificationDeleteNotSuccessfulRecord"));
         }
     }
 

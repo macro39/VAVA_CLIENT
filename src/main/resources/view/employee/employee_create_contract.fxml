@@ -12,14 +12,14 @@
 
 <AnchorPane fx:id="rootPane" prefHeight="600.0" prefWidth="600.0" stylesheets="@../../our.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controller.employee.EmployeeCreateContractController">
    <children>
-      <Label alignment="CENTER" layoutX="59.0" layoutY="14.0" prefHeight="60.0" prefWidth="482.0" text="%createNewAgreementLabel" textFill="WHITE">
+      <Label alignment="CENTER" layoutX="-1.0" layoutY="14.0" prefHeight="60.0" prefWidth="556.0" text="%createNewAgreementLabel" textFill="WHITE">
          <font>
             <Font name="Lucida Console" size="30.0" />
          </font>
       </Label>
       <Label layoutX="50.0" layoutY="283.0" prefHeight="31.0" prefWidth="182.0" text="%rentalPeriodLabel" textFill="WHITE" />
-      <Label layoutX="151.0" layoutY="316.0" prefHeight="35.0" prefWidth="35.0" text="%loanDateLabel" textFill="WHITE" />
-      <Label layoutX="151.0" layoutY="369.0" prefHeight="35.0" prefWidth="35.0" text="%toBeReturnDate" textFill="WHITE" />
+      <Label alignment="CENTER_RIGHT" layoutX="27.0" layoutY="325.0" prefHeight="35.0" prefWidth="174.0" text="%loanDateLabel" textFill="WHITE" />
+      <Label alignment="CENTER_RIGHT" layoutX="27.0" layoutY="379.0" prefHeight="35.0" prefWidth="174.0" text="%toBeReturnDate" textFill="WHITE" />
       <Button layoutX="244.0" layoutY="446.0" mnemonicParsing="false" onAction="#btnCreateContractPushed" prefHeight="25.0" prefWidth="113.0" text="%createButton" />
       <Button layoutX="524.0" layoutY="14.0" mnemonicParsing="false" onAction="#btnBackPushed" prefHeight="28.0" prefWidth="62.0" text="%backButton" />
       <JFXTextField fx:id="textFieldID" layoutX="50.0" layoutY="122.0" prefHeight="39.0" prefWidth="202.0" promptText="%idLabel" />

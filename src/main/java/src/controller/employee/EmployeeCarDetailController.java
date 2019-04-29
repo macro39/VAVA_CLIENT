@@ -224,7 +224,7 @@ public class EmployeeCarDetailController extends Notification implements Initial
 
     public void buttonAddNewServiceRecord(ActionEvent actionEvent) {
         if(checkFieldsBeforeSubmittingNewRepair() || !allServices.contains(getServiceName())) {
-            showError("Nesprávne vyplnené údaje!");
+            showError(actualLanguage.getString("notificationBadEnterDate"));
         } else {
 
             String nameAndLocation[] = getServiceName().split(", ");
@@ -251,7 +251,7 @@ public class EmployeeCarDetailController extends Notification implements Initial
                 return;
             }
 
-            showConfirm("Záznam o servisovaní bol úspešne pridaný!");
+            showConfirm(actualLanguage.getString("notificationAdd"));
 
             removeTypedInfo();
 

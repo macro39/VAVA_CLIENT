@@ -263,7 +263,7 @@ public class EmployeeContractDetailController extends EmployeeBackToMenu impleme
             return;
         }
 
-        showConfirm("Zmluva bola úspešne vytvorená");
+        showConfirm(actualLanguage.getString("notificationAdd"));
 
         backToMenu(rootPane,employee,actualLanguage);
     }

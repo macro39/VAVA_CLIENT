@@ -244,7 +244,7 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
 
                 updateInfo.setOnSucceeded(event1 -> {
                     if(employeeCustomerDetailController.getDataChanged()) {
-                        showConfirm("Informácie boli úspešne aktualizované!");
+                        showConfirm(actualLanguage.getString("notificationUpdateRecord"));
                     }
 
                     tableView.refresh();
@@ -280,13 +280,13 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         ResponseEntity<Boolean> result = restTemplate.exchange(resourceURL, HttpMethod.DELETE, entity, Boolean.class);
 
         if(result.getBody()) {
-            showConfirm("Záznam bol úspešne odstránený!");
+            showConfirm(actualLanguage.getString("notificationDeleteRecord"));
 
             tableView.getItems().remove(selectedCustomer);
 
             setNewRangeOfDisplayedData();
         } else {
-            showError("Záznam sa nepodarilo odstrániť!");
+            showError(actualLanguage.getString("notificationDeleteNotSuccessfulRecord"));
         }
     }
 
@@ -456,7 +456,7 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
 
     public void buttonSearchInDatabasePushed(ActionEvent actionEvent) {
         if(getTextFieldSearchInDatabase().trim().isEmpty()) {
-            showError("Zadaj údaj pre vyhľadávanie!");
+            showError(actualLanguage.getString("notificationNoEnterData"));
             return;
         }
 
@@ -483,7 +483,7 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
 
             if(observableList.size() == 500) {
 
-                showInformation("Počet nájdených záznamov je väčší ako " + observableList.size() + ".");
+                showInformation(actualLanguage.getString("notificationFoundItemsAreMoreThan") + observableList.size() + ".");
 
                 buttonNextData.setDisable(false);
             } else {
