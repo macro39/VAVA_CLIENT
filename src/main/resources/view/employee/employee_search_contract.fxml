@@ -97,8 +97,9 @@
                <contextMenu>
                   <ContextMenu>
                      <items>
-                        <MenuItem mnemonicParsing="false" onAction="#detailMenuSelected" text="Zobraziť detail" />
-                        <MenuItem mnemonicParsing="false" onAction="#deleteMenuSelected" text="Zmazať" />
+                        <MenuItem mnemonicParsing="false" onAction="#detailMenuSelected" text="%tableOptionShowDetail" />
+                        <MenuItem mnemonicParsing="false" onAction="#deleteMenuSelected" text="%tableOptionDelete" />
+                        <MenuItem mnemonicParsing="false" onAction="#exportMenuSelected" text="%tableOptionExportPDF" />
                      </items>
                   </ContextMenu>
                </contextMenu>
@@ -114,7 +115,7 @@
       <Button layoutX="499.0" layoutY="716.0" mnemonicParsing="false" onAction="#buttonSearchInDatabasePushed" prefHeight="35.0" prefWidth="215.0" text="%searchInDatabaseMenuButton" />
       <JFXProgressBar fx:id="progressBar" layoutX="507.0" layoutY="785.0" />
       <Button layoutX="84.0" layoutY="716.0" mnemonicParsing="false" onAction="#buttonDisplayMyContractsPushed" text="%showMyAgreementsButton" />
-      <JFXRadioButton fx:id="radioButton1" layoutX="500.0" layoutY="756.0" onAction="#radioButtonSelected" text="%vinText" />
-      <JFXRadioButton fx:id="radioButton2" layoutX="621.0" layoutY="756.0" onAction="#radioButtonSelected" text="%idText" />
+      <JFXRadioButton fx:id="radioButton1" layoutX="500.0" layoutY="756.0" text="%vinText" />
+      <JFXRadioButton fx:id="radioButton2" layoutX="621.0" layoutY="756.0" text="%idText" />
    </children>
 </AnchorPane>

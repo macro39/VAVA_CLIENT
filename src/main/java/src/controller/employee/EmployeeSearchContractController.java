@@ -1,5 +1,9 @@
 package src.controller.employee;
 
+import com.itextpdf.text.*;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXRadioButton;
 import javafx.application.Platform;
@@ -15,18 +19,23 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import src.model.Contract;
 import src.model.Employee;
 
+import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
@@ -35,9 +44,9 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.function.Predicate;
-import java.util.logging.Level;
 
 public class EmployeeSearchContractController extends EmployeeBackToMenu implements Initializable {
     
@@ -315,6 +324,140 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
         tableView.refresh();
     }
 
+    public void exportMenuSelected(ActionEvent actionEvent) {
+        Contract contract = tableView.getSelectionModel().getSelectedItem();
+
+        if(contract == null) {
+            return;
+        }
+
+        Document document = new Document();
+        String fileName = "contract" + contract.getContractID() + ".pdf";
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(fileName));
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Paragraph spaces = new Paragraph("\n");
+
+        Paragraph carInfo = new Paragraph(actualLanguage.getString("borrowedVehicleAgreementLabel"),
+                FontFactory.getFont(FontFactory.TIMES, 18, Font.BOLD|Font.UNDERLINE));
+        carInfo.setAlignment(Element.ALIGN_CENTER);
+
+        Paragraph vehicleInfoTitle = new Paragraph(actualLanguage.getString("vehicleInformationLabel"),
+                FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD|Font.UNDERLINE)
+        );
+
+        Paragraph vehicleInfo = new Paragraph(
+                actualLanguage.getString("vinLabel") + " " + contract.getCarVIN() + "\n"
+                + actualLanguage.getString("licencePlateLabel") + " " + contract.getCar().getCarSPZ() + "\n"
+                + actualLanguage.getString("brandLabel") + " " + contract.getCar().getBrand() + "\n"
+                + actualLanguage.getString("modelLabel") + " " + contract.getCar().getModel() + "\n"
+                + actualLanguage.getString("yearOfProductionLabel") + " " +
+                        contract.getCar().getYearOfProduction() + "\n",
+                FontFactory.getFont(FontFactory.TIMES, 12)
+        );
+
+        Paragraph borrowerInfoTitle = new Paragraph(actualLanguage.getString("borrowerInformationLabel"),
+                FontFactory.getFont(FontFactory.TIMES, 14, Font.BOLD|Font.UNDERLINE)
+        );
+
+        Paragraph borrowerInfo = new Paragraph(
+                actualLanguage.getString("firstNameLabel") + " " +
+                        contract.getCustomer().getFirstName() + "\n"
+                + actualLanguage.getString("lastNameLabel") + " " + contract.getCustomer().getLastName() + "\n"
+                + actualLanguage.getString("idLabel") + " " + contract.getCustomer().getCustomerID() + "\n"
+                + actualLanguage.getString("adressLabel") + " " + contract.getCustomer().getAddress() + "\n"
+                + actualLanguage.getString("bankAccountLabel") + " " + contract.getCustomer().getAddress() + "\n"
+                + actualLanguage.getString("phoneLabel") + " " + contract.getCustomer().getPhone() + "\n",
+                FontFactory.getFont(FontFactory.TIMES, 12)
+        );
+
+        Paragraph rentalPeriodTitle = new Paragraph(
+                actualLanguage.getString("rentalPeriodLabel"),
+                FontFactory.getFont(FontFactory.TIMES, 16, Font.BOLD|Font.UNDERLINE)
+        );
+
+        Paragraph rentalPeriod = new Paragraph(
+                actualLanguage.getString("loanDateLabel") + " " + contract.getDateFrom() + " - "
+                + actualLanguage.getString("toBeReturnDate") + " " + contract.getDateTo() + "\n\n"
+                + actualLanguage.getString("totalPriceLabel") + " " + contract.getPrice() + "€",
+                FontFactory.getFont(FontFactory.TIMES, 12)
+        );
+
+        Paragraph dealerInfoTitle = new Paragraph(
+                actualLanguage.getString("dealerLabel"),
+                FontFactory.getFont(FontFactory.TIMES, 16, Font.BOLD|Font.UNDERLINE)
+        );
+
+        Paragraph dealerInfo = new Paragraph(
+                contract.getEmployee().getFirstName() + " " + contract.getEmployee().getLastName() + "\n",
+                FontFactory.getFont(FontFactory.TIMES, 12)
+        );
+
+        Paragraph dateOfCreatingTitle = new Paragraph(
+                actualLanguage.getString("dots") +
+                actualLanguage.getString("dayLabel") + contract.getDateOfCreating(),
+                FontFactory.getFont(FontFactory.TIMES, 16)
+        );
+
+        Paragraph signature1 = new Paragraph(
+                actualLanguage.getString("dots") + "\n"  +
+                actualLanguage.getString("borrowerSignatureLabel")
+        );
+
+        Paragraph signature2 = new Paragraph(
+                actualLanguage.getString("dots") + "\n"  +
+                        actualLanguage.getString("dealerSignatureLabel")
+        );
+
+        document.open();
+        try {
+            document.add(carInfo);
+            document.add(spaces);
+            document.add(vehicleInfoTitle);
+            document.add(vehicleInfo);
+            document.add(spaces);
+            document.add(borrowerInfoTitle);
+            document.add(borrowerInfo);
+            document.add(spaces);
+            document.add(rentalPeriodTitle);
+            document.add(rentalPeriod);
+            document.add(spaces);
+            document.add(dealerInfoTitle);
+            document.add(dealerInfo);
+            document.add(spaces);
+            document.add(dateOfCreatingTitle);
+            document.add(spaces);
+            document.add(spaces);
+            document.add(signature1);
+            document.add(spaces);
+            document.add(signature2);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+
+        document.close();
+
+        String path = null;
+        try {
+            path = new File(fileName).getCanonicalPath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        ProcessBuilder pb = new ProcessBuilder("explorer.exe", "/select," + path);
+        pb.redirectError();
+        try {
+            Process proc = pb.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void searchInTable(KeyEvent keyEvent) {
         if(observableList == null) {
             return;
@@ -464,7 +607,8 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
 
             if(observableList.size() == 500) {
 
-                showInformation(actualLanguage.getString("notificationFoundItemsAreMoreThan") + observableList.size() + ".");
+                showInformation(actualLanguage.getString("notificationFoundItemsAreMoreThan")
+                        + observableList.size() + ".");
 
                 buttonNextData.setDisable(false);
             } else {
@@ -547,7 +691,8 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
 
             if(observableList.size() == 500) {
 
-                showInformation("Počet nájdených záznamov je väčší ako " + observableList.size() + ".");
+                showInformation(actualLanguage.getString("notificationFoundItemsAreMoreThan")
+                        + observableList.size() + ".");
 
                 buttonNextData.setDisable(false);
             } else {
@@ -590,6 +735,5 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
         currentStage.show();
     }
 
-    public void radioButtonSelected(ActionEvent actionEvent) {
-    }
+
 }
