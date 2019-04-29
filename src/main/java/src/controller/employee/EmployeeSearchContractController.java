@@ -19,6 +19,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
@@ -39,23 +41,29 @@ import java.util.logging.Level;
 
 public class EmployeeSearchContractController extends EmployeeBackToMenu implements Initializable {
     
-    @FXML private TableColumn<Contract, Date> collumnDateOfCreating;
+
     @FXML private AnchorPane rootPane;
     @FXML private Label labelFirstName;
     @FXML private Label labelDate;
     @FXML private Label labelLastName;
+
     @FXML private TableView<Contract> tableView;
     @FXML private TableColumn<Contract, Integer> collumnNumberOfContract;
     @FXML private TableColumn<Contract, String> collumnID;
+    @FXML private TableColumn<Contract, Date> collumnDateOfCreating;
     @FXML private TableColumn<Contract, String> collumnVIN;
+
     @FXML private TextField textFieldSearchInTable;
+
+    @FXML private TextField textFieldSearchInDatabase;
+    @FXML private JFXRadioButton radioButton2;
+    @FXML private JFXProgressBar progressBar;
+
     @FXML private Button buttonPreviousData;
     @FXML private Button buttonNextData;
     @FXML private Label labelOffset;
-    @FXML private TextField textFieldSearchInDatabase;
+
     @FXML private JFXRadioButton radioButton1;
-    @FXML private JFXRadioButton radioButton2;
-    @FXML private JFXProgressBar progressBar;
 
     private Employee employee;
 
@@ -63,13 +71,13 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
 
     private Boolean isButtonSearchInDatabasePushed = false;
 
-    private Boolean openedFromContractScene = false;
-
     private ResourceBundle actualLanguage;
 
     private ObservableList<Contract> observableList;
 
     private FilteredList filteredList;
+
+    private Boolean isButtonSearchEmployeeContractsPushed = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -94,8 +102,13 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
         buttonNextData.setDisable(true);
         buttonPreviousData.setDisable(true);
 
+        ToggleGroup group = new ToggleGroup();
+
         radioButton1.setSelected(true);
+        radioButton1.setToggleGroup(group);
+
         radioButton2.setSelected(false);
+        radioButton2.setToggleGroup(group);
 
         progressBar.setVisible(false);
     }
@@ -156,12 +169,12 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
 
         if (radioButton1.isSelected()) {
             resourceURL = "http://localhost:8080/api/contract/byCar/" +
-                    getTextFieldSearchInDatabase() + "/" + offSet;
+                    getTextFieldSearchInDatabase().toUpperCase();
         }
 
         if (radioButton2.isSelected()) {
             resourceURL = "http://localhost:8080/api/contract/byCustomer/" +
-                    getTextFieldSearchInDatabase() + "/" + offSet;
+                    getTextFieldSearchInDatabase().toUpperCase();
         }
 
         RestTemplate restTemplate = new RestTemplate();
@@ -169,6 +182,24 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<List<Contract>> entity = new HttpEntity<>(headers);
+
+        ResponseEntity<List<Contract>> result = restTemplate.exchange(resourceURL,
+                HttpMethod.GET, entity, new ParameterizedTypeReference<List<Contract>>() {
+                });
+
+        observableList = FXCollections.observableArrayList();
+
+        observableList.addAll(result.getBody());
+    }
+
+    public void addItemsToListCreatedByEmployee() {
+        String resourceURL = "http://localhost:8080/api/contract/byEmployee/" + employee.getEmployeeID();
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Employee> entity = new HttpEntity<>(headers);
 
         ResponseEntity<List<Contract>> result = restTemplate.exchange(resourceURL,
                 HttpMethod.GET, entity, new ParameterizedTypeReference<List<Contract>>() {
@@ -327,6 +358,8 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
 
                 if(isButtonSearchInDatabasePushed) {
                     addItemsToListWithSpecification();
+                } else if(isButtonSearchEmployeeContractsPushed) {
+                   addItemsToListCreatedByEmployee();
                 } else {
                     addItemsToList();
                 }
@@ -375,6 +408,8 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
 
                 if(isButtonSearchInDatabasePushed) {
                     addItemsToListWithSpecification();
+                } else if(isButtonSearchEmployeeContractsPushed) {
+                    addItemsToListCreatedByEmployee();
                 } else {
                     addItemsToList();
                 }
@@ -450,6 +485,7 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
 
     public void buttonDisplayDataPushed(ActionEvent actionEvent) {
         isButtonSearchInDatabasePushed = false;
+        isButtonSearchEmployeeContractsPushed = false;
 
         offSet = 0;
 
@@ -488,6 +524,46 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
     }
 
     public void buttonDisplayMyContractsPushed(ActionEvent actionEvent) {
+        buttonPreviousData.setDisable(true);
+        isButtonSearchEmployeeContractsPushed = true;
+        offSet = 0;
+
+        Task addDataFromDatabase = new Task() {
+            @Override
+            protected Object call() throws Exception {
+
+                progressBar.setVisible(true);
+
+                addItemsToListCreatedByEmployee();
+
+                return observableList;
+            }
+        };
+
+        addDataFromDatabase.setOnSucceeded(event1 -> {
+            tableView.setItems(observableList);
+
+            progressBar.setVisible(false);
+
+            if(observableList.size() == 500) {
+
+                showInformation("Počet nájdených záznamov je väčší ako " + observableList.size() + ".");
+
+                buttonNextData.setDisable(false);
+            } else {
+                buttonNextData.setDisable(true);
+            }
+
+            filteredList = new FilteredList(observableList,e->true);
+
+            textFieldSearchInTable.setText("");
+
+            setNewRangeOfDisplayedData();
+        });
+
+        Thread thread = new Thread(addDataFromDatabase);
+        thread.setDaemon(true);
+        thread.start();
     }
 
     public void btnBackPushed(ActionEvent actionEvent) {

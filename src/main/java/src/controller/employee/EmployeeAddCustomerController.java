@@ -109,7 +109,7 @@ public class EmployeeAddCustomerController extends EmployeeBackToMenu implements
         } else if(emptyFieldChecker()) {
             showWarning(actualLanguage.getString("notificationNoEnterData"));
         } else {
-            Customer newCustomer = new Customer(getID(),
+            Customer newCustomer = new Customer(getID().toUpperCase(),
                     getFirstName(),getLastName(),getAddress(),getBankAccount(),getPhone());
 
             String resourceURL = "http://localhost:8080/api/customer";
