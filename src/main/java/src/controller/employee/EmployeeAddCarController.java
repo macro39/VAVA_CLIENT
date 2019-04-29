@@ -241,17 +241,17 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
     public void btnConfirmPushed(ActionEvent actionEvent) {
 
         if(tooLongText()) {
-            showWarning("Príliš dlhé údaje v kolonke ŠPZ/VIN! Max. počet znakov pre VIN je 17, pre ŠPZ 20.");
+            showWarning(actualLanguage.getString("notificationTooLongVin"));
             return;
         }
 
         if(emptyFieldChecker()) {
-            showWarning("Vypíšte správne všetky údaje!");
+            showWarning(actualLanguage.getString("notificationBadEnterDate"));
             return;
         }
 
         if(!getYear().before(Calendar.getInstance().getTime())){
-            showError("Rok výroby auta je neplatný!");
+            showError(actualLanguage.getString("notificationBadYearOfProduction"));
             return;
         } else {
             CarInfo carInfo = new CarInfo(getBrand(),getModel(),getCarBody(),
@@ -279,10 +279,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
             }
 
             if(result.getBody()) {
-                showConfirm("Auto s VIN číslom " + getVIN() + " bolo pridané!");
+                showConfirm(actualLanguage.getString("notificationAddVehicle"));
                 backToMenu(rootPane,employee,actualLanguage);
             } else {
-                showError("Záznam o aute s VIN číslom " + getVIN() + " už existuje!");
+                showError(actualLanguage.getString("notificationAlreadyExist"));
             }
         }
 
@@ -292,34 +292,34 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         ObservableList<String> itemsFromCombobox = FXCollections.observableArrayList(comboBoxBrand.getItems());
 
         PopUpWindow popUpWindow = new PopUpWindow();
-        String newItem = popUpWindow.display(null,"brand","Zadaj značku: ", itemsFromCombobox);
+        String newItem = popUpWindow.display(null,"brand",actualLanguage.getString("notificationNoEnterData"), itemsFromCombobox,actualLanguage);
 
         if(newItem != null) {
             comboBoxBrand.getItems().add(newItem);
 
             comboBoxBrand.setValue(newItem);
 
-            showConfirm("Pridané!");
+            showConfirm(actualLanguage.getString("notificationAdd"));
         }
     }
 
     public void btnAddModelPushed(ActionEvent actionEvent) {
 
         if (getBrand() == null) {
-            showError("Zadaj značku!");
+            showError(actualLanguage.getString("notificationNoEnterData"));
         }
 
         ObservableList<String> itemsFromCombobox = FXCollections.observableArrayList(comboBoxModel.getItems());
 
         PopUpWindow popUpWindow = new PopUpWindow();
-        String newItem = popUpWindow.display(getBrand(),"model","Zadaj model: ", itemsFromCombobox);
+        String newItem = popUpWindow.display(getBrand(),"model",actualLanguage.getString("notificationNoEnterData"), itemsFromCombobox,actualLanguage);
 
         if(newItem != null) {
             comboBoxModel.getItems().add(newItem);
 
             comboBoxModel.setValue(newItem);
 
-            showConfirm("Pridané!");
+            showConfirm(actualLanguage.getString("notificationAdd"));
         }
     }
 
@@ -327,14 +327,14 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         ObservableList<String> itemsFromCombobox = FXCollections.observableArrayList(comboBoxColor.getItems());
 
         PopUpWindow popUpWindow = new PopUpWindow();
-        String newItem = popUpWindow.display(null,"color","Zadaj farbu: ", itemsFromCombobox);
+        String newItem = popUpWindow.display(null,"color","Zadaj farbu: ", itemsFromCombobox,actualLanguage);
 
         if(newItem != null) {
             comboBoxColor.getItems().add(newItem);
 
             comboBoxColor.setValue(newItem);
 
-            showConfirm("Pridané!");
+            showConfirm(actualLanguage.getString("notificationAdd"));
         }
     }
 

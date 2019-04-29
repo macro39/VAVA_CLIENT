@@ -309,7 +309,7 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
             return;
         }
 
-        showConfirm("Zmluva bola úspešne zmazaná");
+        showConfirm(actualLanguage.getString("notificationDeleteNotSuccessfulRecord"));
 
         observableList.remove(selectedContract);
         tableView.refresh();
@@ -437,7 +437,7 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
 
     public void buttonSearchInDatabasePushed(ActionEvent actionEvent) {
         if(getTextFieldSearchInDatabase().trim().isEmpty()) {
-            showError("Zadaj údaj pre vyhľadávanie!");
+            showError(actualLanguage.getString("notificationNoEnterData"));
             return;
         }
 
@@ -464,7 +464,7 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
 
             if(observableList.size() == 500) {
 
-                showInformation("Počet nájdených záznamov je väčší ako " + observableList.size() + ".");
+                showInformation(actualLanguage.getString("notificationFoundItemsAreMoreThan") + observableList.size() + ".");
 
                 buttonNextData.setDisable(false);
             } else {

@@ -195,11 +195,11 @@ public class EmployeeCreateContractController extends EmployeeBackToMenu impleme
 
     public void btnCreateContractPushed(ActionEvent actionEvent) {
         if (getDateTo() == null || getDateFrom() == null || getDateTo().before(getDateFrom())) {
-            showWarning("Zadajte správne dobu trvania!");
+            showWarning(actualLanguage.getString("notificationBadRentalPeriod"));
         } else if(car == null) {
-            showError("Vyber auto!");
+            showError(actualLanguage.getString("notificationNoEnterData"));
         } else if(customer == null) {
-            showError("Vyber zákazníka!");
+            showError(actualLanguage.getString("notificationNoEnterData"));
         }
         else {
             long diff = getDateTo().getTime() - getDateFrom().getTime();

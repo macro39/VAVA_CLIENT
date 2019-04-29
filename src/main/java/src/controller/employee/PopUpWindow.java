@@ -16,6 +16,7 @@ import src.model.CarInfo;
 
 
 import java.util.Arrays;
+import java.util.ResourceBundle;
 
 public class PopUpWindow extends Notification {
 
@@ -23,7 +24,9 @@ public class PopUpWindow extends Notification {
     private Stage window;
     private Boolean changesWereSet = false;
 
-    public String display(String brand, String operation, String text, ObservableList<String> observableList) {
+    private ResourceBundle actualLanguage;
+
+    public String display(String brand, String operation, String text, ObservableList<String> observableList, ResourceBundle resources) {
 
         window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -31,14 +34,15 @@ public class PopUpWindow extends Notification {
         window.setHeight(200);
         window.setResizable(false);
 
+        actualLanguage = resources;
 
         Label label = new Label(text);
         field = new TextField();
-        Button btnAdd = new Button("Pridaj");
+        Button btnAdd = new Button(actualLanguage.getString("addButton"));
 
 
         btnAdd.setOnAction(e -> {
-            do_operation(brand, operation,observableList);
+            do_operation(brand, operation,observableList, resources);
         });
 
         VBox layout = new VBox(10);
@@ -52,18 +56,20 @@ public class PopUpWindow extends Notification {
         return changesWereSet.equals(true) ? getText() : null;
     }
 
-    public void do_operation(String brand, String operation,  ObservableList<String> observableList) {
+    public void do_operation(String brand, String operation,  ObservableList<String> observableList, ResourceBundle resources) {
+
+        actualLanguage = resources;
 
         if(getText().trim().isEmpty()) {
 
-            showError("Vyplň údaje!");
+            showError(actualLanguage.getString("notificationNoEnterData"));
 
             return;
         }
 
         if(observableList.contains(getText())){
 
-            showError("Zadaný údaj je už uložený!");
+            showError(actualLanguage.getString("notificationAlreadyExist"));
 
             return;
         } else {
@@ -102,7 +108,7 @@ public class PopUpWindow extends Notification {
                 return;
             }
 
-            showInformation("Pridané!");
+            showInformation(actualLanguage.getString("notificationAdd"));
 
             window.close();
 

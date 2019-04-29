@@ -29,9 +29,9 @@
             </VBox>
          </children>
       </HBox>
-      <Label alignment="CENTER" layoutX="66.0" layoutY="78.0" prefHeight="72.0" prefWidth="468.0" text="%addBorrowerText" textFill="WHITE">
+      <Label alignment="CENTER" layoutY="78.0" prefHeight="72.0" prefWidth="600.0" text="%addBorrowerText" textFill="WHITE">
          <font>
-            <Font name="Lucida Console" size="30.0" />
+            <Font name="Lucida Console" size="26.0" />
          </font>
       </Label>
       <HBox alignment="CENTER_RIGHT" prefHeight="51.0" prefWidth="600.0">
