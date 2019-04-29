@@ -27,10 +27,12 @@ import java.util.ResourceBundle;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author Jozef
+ */
 public class EmployeeCreateContractController extends EmployeeBackToMenu implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
     @FXML private JFXTextField textFieldID;
     @FXML private JFXTextField textFieldVIN;
@@ -125,6 +127,10 @@ public class EmployeeCreateContractController extends EmployeeBackToMenu impleme
         return date;
     }
 
+    /**
+     * Switched to the scene where employee can find Customer and create agreement with him.
+     * @param actionEvent
+     */
     public void buttonSearchCustomerPushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -159,6 +165,10 @@ public class EmployeeCreateContractController extends EmployeeBackToMenu impleme
         currentStage.show();
     }
 
+    /**
+     * Switched to the scene where employee can find car and create agreement with it.
+     * @param actionEvent
+     */
     public void buttonSearchCarPushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -193,6 +203,10 @@ public class EmployeeCreateContractController extends EmployeeBackToMenu impleme
         currentStage.show();
     }
 
+    /**
+     * Control if date to is bigger than date from. If there is all correct info new scene will be shown.
+     * @param actionEvent
+     */
     public void btnCreateContractPushed(ActionEvent actionEvent) {
         if (getDateTo() == null || getDateFrom() == null || getDateTo().before(getDateFrom())) {
             showWarning(actualLanguage.getString("notificationBadRentalPeriod"));
@@ -270,6 +284,10 @@ public class EmployeeCreateContractController extends EmployeeBackToMenu impleme
         }
     }
 
+    /**
+     * Calls another method called backToMenu().
+     * @param actionEvent
+     */
     public void btnBackPushed(ActionEvent actionEvent) {
         backToMenu(rootPane,employee,actualLanguage);
     }

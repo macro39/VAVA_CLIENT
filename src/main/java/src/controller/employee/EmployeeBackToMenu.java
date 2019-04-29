@@ -11,8 +11,17 @@ import src.model.Employee;
 import java.io.IOException;
 import java.util.ResourceBundle;
 
+/**
+ * @author Kamil
+ */
 public class EmployeeBackToMenu extends Notification {
 
+    /**
+     * Switch scene to go back to menu scene.
+     * @param rootPane
+     * @param employee current online employee
+     * @param actualLanguage current language
+     */
     public void backToMenu(AnchorPane rootPane, Employee employee, ResourceBundle actualLanguage) {
         Parent parent = null;
         try {

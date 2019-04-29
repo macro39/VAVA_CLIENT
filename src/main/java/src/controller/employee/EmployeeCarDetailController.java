@@ -27,12 +27,16 @@ import java.sql.Date;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ * @author Kamil
+ */
 public class EmployeeCarDetailController extends Notification implements Initializable {
 
     // noneditable attributes
-    @FXML
-    private TableView<Car> tableNonEditable;
+    @FXML private TableView<Car> tableNonEditable;
     @FXML private TableColumn<Car, String> columnVIN;
     @FXML private TableColumn<Car, String> columnYearOfProduction;
     @FXML private TableColumn<Car, String> columnBrand;
@@ -74,6 +78,8 @@ public class EmployeeCarDetailController extends Notification implements Initial
     private Boolean dataChanged = false;
 
     private ResourceBundle actualLanguage;
+
+    private static Logger LOG = Logger.getLogger(EmployeeCarDetailController.class.getName());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -139,7 +145,6 @@ public class EmployeeCarDetailController extends Notification implements Initial
                     new ParameterizedTypeReference<List<String>>() {
             });
         } catch (Exception e) {
-            //LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
             showError(actualLanguage.getString("notificationNoResponseServer"));
             return;
         }
@@ -184,7 +189,7 @@ public class EmployeeCarDetailController extends Notification implements Initial
     }
 
     public void setNumberOfServices() {
-        labelNumberOfServices.setText("Počet záznamov: " + car.getCarRepairs().size());
+        labelNumberOfServices.setText(actualLanguage.getString("numberOfServicesLabel") + car.getCarRepairs().size());
     }
 
     public Boolean checkFieldsBeforeSubmittingNewRepair() {
@@ -222,6 +227,11 @@ public class EmployeeCarDetailController extends Notification implements Initial
         car.getCarInfo().setPricePerDay(carDoubleCellEditEvent.getNewValue());
     }
 
+    /**
+     * Connect to server and add new service for that car record.
+     * If there is mistake in input method will show error notification.
+     * @param actionEvent
+     */
     public void buttonAddNewServiceRecord(ActionEvent actionEvent) {
         if(checkFieldsBeforeSubmittingNewRepair() || !allServices.contains(getServiceName())) {
             showError(actualLanguage.getString("notificationBadEnterDate"));

@@ -21,7 +21,11 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 
+/**
+ * @author Jozef
+ */
 public class EmployeeContractDetailController extends EmployeeBackToMenu implements Initializable {
 
     @FXML private AnchorPane rootPane;
@@ -72,6 +76,8 @@ public class EmployeeContractDetailController extends EmployeeBackToMenu impleme
     private ResourceBundle actualLanguage;
 
     private Boolean isOpenedAsDetail = false;
+
+    private static Logger LOG = Logger.getLogger(EmployeeContractDetailController.class.getName());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -243,6 +249,10 @@ public class EmployeeContractDetailController extends EmployeeBackToMenu impleme
         this.labelTotalPrice.setText(String.valueOf(labelTotalPrice) + "€");
     }
 
+    /**
+     * Connect to server and new agreement record will be cerated and added to database.
+     * @param actionEvent
+     */
     public void btnSubmitPushed(ActionEvent actionEvent) {
         String resourceURL = "http://localhost:8080/api/contract/";
 
@@ -268,6 +278,10 @@ public class EmployeeContractDetailController extends EmployeeBackToMenu impleme
         backToMenu(rootPane,employee,actualLanguage);
     }
 
+    /**
+     * Calls another method called backToMenu().
+     * @param actionEvent
+     */
     public void btnBackPushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {

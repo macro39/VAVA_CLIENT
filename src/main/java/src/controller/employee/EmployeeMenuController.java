@@ -17,17 +17,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
+/**
+ * @author Kamil
+ */
 public class EmployeeMenuController implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
-    @FXML
-    private Label labelFirstName;
-    @FXML
-    private Label labelLastName;
-    @FXML
-    private Label labelDate;
+    @FXML private Label labelFirstName;
+    @FXML private Label labelLastName;
+    @FXML private Label labelDate;
 
     private Employee employee;
 
@@ -56,7 +55,10 @@ public class EmployeeMenuController implements Initializable {
         setHeader();
     }
 
-
+    /**
+     * Switch another scene for opportunity to add new customer to the database.
+     * @param actionEvent
+     */
     public void btnAddCustomerPushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -79,6 +81,10 @@ public class EmployeeMenuController implements Initializable {
         currentStage.show();
     }
 
+    /**
+     * Switch another scene for opportunity to add new car to the database.
+     * @param actionEvent
+     */
     public void btnCreateCarPushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -101,6 +107,10 @@ public class EmployeeMenuController implements Initializable {
         currentStage.show();
     }
 
+    /**
+     * Switch another scene for opportunity to add new agreement to the database.
+     * @param actionEvent
+     */
     public void btnCreateAgreement(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -123,6 +133,10 @@ public class EmployeeMenuController implements Initializable {
         currentStage.show();
     }
 
+    /**
+     * Switch another scene for opportunity to find items in database.
+     * @param actionEvent
+     */
     public void btnSearchingPushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {

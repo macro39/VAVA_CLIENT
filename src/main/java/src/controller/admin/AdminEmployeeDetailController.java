@@ -13,28 +13,22 @@ import src.model.Employee;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author Kamil
+ */
 public class AdminEmployeeDetailController implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
-    @FXML
-    private TableView<Employee> tableView;
+    @FXML private TableView<Employee> tableView;
 
-    @FXML
-    private TableColumn<Employee, Integer> columnID;
-    @FXML
-    private TableColumn<Employee, String> columnFirstName;
-    @FXML
-    private TableColumn<Employee, String> columnLastName;
-    @FXML
-    private TableColumn<Employee, String> columnLogin;
-    @FXML
-    private TableColumn<Employee, String> columnPassword;
-    @FXML
-    private TableColumn<Employee, String> columnPhone;
-    @FXML
-    private TableColumn<Employee, String> columnType;
+    @FXML private TableColumn<Employee, Integer> columnID;
+    @FXML private TableColumn<Employee, String> columnFirstName;
+    @FXML private TableColumn<Employee, String> columnLastName;
+    @FXML private TableColumn<Employee, String> columnLogin;
+    @FXML private TableColumn<Employee, String> columnPassword;
+    @FXML private TableColumn<Employee, String> columnPhone;
+    @FXML private TableColumn<Employee, String> columnType;
 
     private Employee employee;
 

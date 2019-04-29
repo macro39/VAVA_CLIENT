@@ -26,6 +26,15 @@ public class PopUpWindow extends Notification {
 
     private ResourceBundle actualLanguage;
 
+    /**
+     * Show new window where employee can add new item.
+     * @param brand brand of car
+     * @param operation
+     * @param text text of new item
+     * @param observableList
+     * @param resources actual language
+     * @return
+     */
     public String display(String brand, String operation, String text, ObservableList<String> observableList, ResourceBundle resources) {
 
         window = new Stage();
@@ -56,6 +65,13 @@ public class PopUpWindow extends Notification {
         return changesWereSet.equals(true) ? getText() : null;
     }
 
+    /**
+     * Connect to server and add new brand.
+     * @param brand brand of car
+     * @param operation
+     * @param observableList
+     * @param resources actual language
+     */
     public void do_operation(String brand, String operation,  ObservableList<String> observableList, ResourceBundle resources) {
 
         actualLanguage = resources;

@@ -29,18 +29,17 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Kamil
+ */
 public class LoginController extends Notification implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
-    @FXML
-    private Button buttonLogIn;
+    @FXML private Button buttonLogIn;
 
-    @FXML
-    private JFXTextField fieldLogin;
-    @FXML
-    private JFXPasswordField fieldPassword;
+    @FXML private JFXTextField fieldLogin;
+    @FXML private JFXPasswordField fieldPassword;
 
     private ResourceBundle actualLanguage;
 
@@ -97,7 +96,6 @@ public class LoginController extends Notification implements Initializable {
         try {
             result = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, Employee.class);
         } catch (Exception e) {
-            LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
             showError(actualLanguage.getString("notificationNoResponseServer"));
             return;
         }
@@ -143,6 +141,10 @@ public class LoginController extends Notification implements Initializable {
         currentStage.show();
     }
 
+    /**
+     * Change aplication into Slovak version.
+     * @param actionEvent
+     */
     public void buttonSKlangPushed(ActionEvent actionEvent) {
 
         if(!actualLanguage.getLocale().toString().equals("sk_SK")) {
@@ -152,6 +154,10 @@ public class LoginController extends Notification implements Initializable {
         }
     }
 
+    /**
+     * Change aplication into English version.
+     * @param actionEvent
+     */
     public void buttonENlangPushed(ActionEvent actionEvent) {
 
         if(!actualLanguage.getLocale().toString().equals("en_EN")) {
@@ -161,6 +167,10 @@ public class LoginController extends Notification implements Initializable {
         }
     }
 
+    /**
+     * Change aplication into Deutschland version.
+     * @param actionEvent
+     */
     public void buttonDElangPushed(ActionEvent actionEvent) {
         if(!actualLanguage.getLocale().toString().equals("de_DE")) {
             actualLanguage = ResourceBundle.getBundle("lang",new Locale("de","DE"));
@@ -169,6 +179,10 @@ public class LoginController extends Notification implements Initializable {
         }
     }
 
+    /**
+     * Change aplication into Spanish version.
+     * @param actionEvent
+     */
     public void buttonESlangPushed(ActionEvent actionEvent) {
         if(!actualLanguage.getLocale().toString().equals("es_ES")) {
             actualLanguage = ResourceBundle.getBundle("lang",new Locale("es","es"));
@@ -177,6 +191,10 @@ public class LoginController extends Notification implements Initializable {
         }
     }
 
+    /**
+     * Change aplication into Japan version.
+     * @param actionEvent
+     */
     public void buttonJPlangPushed(ActionEvent actionEvent) {
         if(!actualLanguage.getLocale().toString().equals("jp_JP")) {
             actualLanguage = ResourceBundle.getBundle("lang",new Locale("jp","JP"));

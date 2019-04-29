@@ -29,10 +29,12 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Kamil
+ */
 public class EmployeeAddCarController extends EmployeeBackToMenu implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
     @FXML private JFXComboBox comboBoxBrand;
     @FXML private JFXComboBox comboBoxModel;
@@ -57,7 +59,7 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
 
     private ResourceBundle actualLanguage;
 
-    private static Logger LOG = Logger.getLogger(LoginController.class.getName());
+    private static Logger LOG = Logger.getLogger(EmployeeAddCarController.class.getName());
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -82,6 +84,9 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         datePickerYear.setDisable(true);
     }
 
+    /**
+     * Connect to server and fill combo box with items.
+     */
     public void addItemsComboBox() {
 
         ComboBox[] array = new ComboBox[5];
@@ -107,7 +112,6 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
                     HttpMethod.GET, entity, new ParameterizedTypeReference<ArrayList<String>[]>() {
                     });
         } catch (Exception e) {
-            LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
             showError(actualLanguage.getString("notificationNoResponseServer"));
             return;
         }
@@ -120,6 +124,9 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
 
     }
 
+    /**
+     * Config of pinner. Sets default values and ranges.
+     */
     public void spinnerConfig() {
         spinnerEngineCapacity.setValueFactory(new SpinnerValueFactory.DoubleSpinnerValueFactory(2.5,5.0,1,0.1));
         spinnerEnginePower.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(80,500,180,1));
@@ -209,6 +216,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         return textFieldVIN.getText();
     }
 
+    /**
+     * Test that all info has correct length.
+     * @return true if all info is correct, or false if there is wrong input.
+     */
     public boolean tooLongText() {
         if(getSPZ().length() > 20 ||
                 getVIN().length() > 17){
@@ -217,6 +228,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         return false;
     }
 
+    /**
+     * Test that all info is not empty.
+     * @return true if all info has something written, or false if there is still empty field.
+     */
     public boolean emptyFieldChecker() {
         if(getBrand() == null ||
                 getModel() == null ||
@@ -238,6 +253,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         return false;
     }
 
+    /**
+     * Controls if all info are correct, if they are not the error notification is shown.
+     * @param actionEvent
+     */
     public void btnConfirmPushed(ActionEvent actionEvent) {
 
         if(tooLongText()) {
@@ -273,7 +292,7 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
                 result = restTemplate.exchange(resourceURL,
                         HttpMethod.POST, entity, Boolean.class);
             } catch (Exception e) {
-                LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
+                //LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
                 showError(actualLanguage.getString("notificationNoResponseServer"));
                 return;
             }
@@ -288,6 +307,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
 
     }
 
+    /**
+     * Shows pop up window for addition new brand.
+     * @param actionEvent
+     */
     public void btnAddBrandPushed(ActionEvent actionEvent) {
         ObservableList<String> itemsFromCombobox = FXCollections.observableArrayList(comboBoxBrand.getItems());
 
@@ -303,6 +326,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         }
     }
 
+    /**
+     * Shows pop up window for addition new model.
+     * @param actionEvent
+     */
     public void btnAddModelPushed(ActionEvent actionEvent) {
 
         if (getBrand() == null) {
@@ -323,6 +350,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         }
     }
 
+    /**
+     * Shows pop up window for addition new Color.
+     * @param actionEvent
+     */
     public void btnAddColorPushed(ActionEvent actionEvent) {
         ObservableList<String> itemsFromCombobox = FXCollections.observableArrayList(comboBoxColor.getItems());
 
@@ -338,6 +369,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         }
     }
 
+    /**
+     * Connect to server and fill comboBox with items for brand.
+     * @param mouseEvent
+     */
     public void comboBoxModelClicked(MouseEvent mouseEvent) {
         if(getBrand() == null) {
             return;
@@ -408,6 +443,10 @@ public class EmployeeAddCarController extends EmployeeBackToMenu implements Init
         textFieldPrice.setDisable(false);
     }
 
+    /**
+     * Calls another method called backToMenu().
+     * @param actionEvent
+     */
     public void btnBackPushed(ActionEvent actionEvent) {
         backToMenu(rootPane,employee,actualLanguage);
     }

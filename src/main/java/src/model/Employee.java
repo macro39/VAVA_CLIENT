@@ -2,6 +2,9 @@ package src.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * @author Kamil
+ */
 public class Employee {
     @JsonProperty("employee_id")
     private Integer employeeID;

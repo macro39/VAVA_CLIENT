@@ -32,10 +32,12 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Predicate;
 
+/**
+ * @author Kamil
+ */
 public class EmployeeSearchCarController extends EmployeeBackToMenu implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
     // header labels
     @FXML private Label labelFirstName;
@@ -77,6 +79,9 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
 
     private ResourceBundle actualLanguage;
 
+    /**
+     * Set up current date into labels.
+     */
     public void setHeader () {
         labelFirstName.setText(employee.getFirstName());
         labelLastName.setText(employee.getLastName());
@@ -149,6 +154,9 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
 
     // add items
 
+    /**
+     * Connect to database for add items to list. Later it will be shown in the tableView.
+     */
     public void addItemsToList() {
         String resourceURL = "http://localhost:8080/api/car/byOffSet/" + offSet;
 
@@ -158,15 +166,25 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<List<Car>> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<List<Car>> result = restTemplate.exchange(resourceURL,
-                HttpMethod.GET, entity, new ParameterizedTypeReference<List<Car>>() {
-                });
+        ResponseEntity<List<Car>> result;
+
+        try {
+            result = restTemplate.exchange(resourceURL,
+                    HttpMethod.GET, entity, new ParameterizedTypeReference<List<Car>>() {
+                    });
+        } catch (Exception e) {
+            showError(actualLanguage.getString("notificationNoResponseServer"));
+            return;
+        }
 
         observableList = FXCollections.observableArrayList();
 
         observableList.addAll(result.getBody());
     }
 
+    /**
+     * Connect to database for add items to list. Later it will be shown in the tableView.
+     */
     public void addItemsToListWithSpecification() {
 
         String resourceURL = "http://localhost:8080/api/car/" +
@@ -178,15 +196,25 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<List<Car>> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<List<Car>> result = restTemplate.exchange(resourceURL,
-                HttpMethod.GET, entity, new ParameterizedTypeReference<List<Car>>() {
-                });
+        ResponseEntity<List<Car>> result;
+
+        try {
+            result = restTemplate.exchange(resourceURL,
+                    HttpMethod.GET, entity, new ParameterizedTypeReference<List<Car>>() {
+                    });
+        } catch (Exception e) {
+            showError(actualLanguage.getString("notificationNoResponseServer"));
+            return;
+        }
 
         observableList = FXCollections.observableArrayList();
 
         observableList.addAll(result.getBody());
     }
 
+    /**
+     * Fill tableView with items.
+     */
     public void addItemsToTable() {
         tableView.setItems(observableList);
 
@@ -199,6 +227,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
 
     // menu
 
+    /**
+     * Switched to new scene for detail of car.
+     * @param actionEvent
+     */
     public void detailMenuSelected(ActionEvent actionEvent) {
         if(tableView.getSelectionModel().getSelectedItem() == null) {
             return;
@@ -265,6 +297,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         }
     }
 
+    /**
+     * Connect to server and car record will be deleted from database.
+     * @param actionEvent
+     */
     public void deleteMenuSelected(ActionEvent actionEvent) {
         if(tableView.getSelectionModel().getSelectedItem() == null) {
             return;
@@ -280,7 +316,14 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Boolean> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<Boolean> result = restTemplate.exchange(resourceURL, HttpMethod.DELETE, entity, Boolean.class);
+        ResponseEntity<Boolean> result;
+
+        try {
+            result = restTemplate.exchange(resourceURL, HttpMethod.DELETE, entity, Boolean.class);
+        } catch (Exception e) {
+            showError(actualLanguage.getString("notificationNoResponseServer"));
+            return;
+        }
 
         if(result.getBody()) {
             showConfirm(actualLanguage.getString("notificationDeleteRecord"));
@@ -293,6 +336,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         }
     }
 
+    /**
+     * Method if we want to this concrete car create an agreement.
+     * @param actionEvent
+     */
     public void createContractMenuSelected(ActionEvent actionEvent) {
         if(tableView.getSelectionModel().getSelectedItem() == null) {
             return;
@@ -301,6 +348,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         backToCreateContract(true);
     }
 
+    /**
+     *
+     * @param keyEvent
+     */
     public void searchInTable(KeyEvent keyEvent) {
         if(observableList == null) {
             return;
@@ -330,6 +381,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         setNewRangeOfDisplayedData();
     }
 
+    /**
+     * If there is more than 500 records, method will load next 500.
+     * @param actionEvent
+     */
     public void loadNext(ActionEvent actionEvent) {
         offSet++;
 
@@ -373,6 +428,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         thread.start();
     }
 
+    /**
+     * Method will load previous 500 records.
+     * @param actionEvent
+     */
     public void loadPrevious(ActionEvent actionEvent) {
         if(offSet > 0) {
             buttonNextData.setDisable(false);
@@ -417,6 +476,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         thread.start();
     }
 
+    /**
+     * Search in database based on some criteria.
+     * @param actionEvent
+     */
     public void buttonSearchInDatabasePushed(ActionEvent actionEvent) {
         if(getTextFieldSearchInDatabase().trim().isEmpty()) {
             showError(actualLanguage.getString("notificationNoEnterData"));
@@ -465,6 +528,10 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         thread.start();
     }
 
+    /**
+     * Data without any criteria are searching and displayed.
+     * @param actionEvent
+     */
     public void buttonDisplayDataPushed(ActionEvent actionEvent) {
         isButtonSearchInDatabasePushed = false;
 
@@ -504,6 +571,9 @@ public class EmployeeSearchCarController extends EmployeeBackToMenu implements I
         thread.start();
     }
 
+    /**
+     * Switched to new scene back to menu.
+     */
     public void btnBackPushed(ActionEvent actionEvent) {
         Parent parent = null;
 

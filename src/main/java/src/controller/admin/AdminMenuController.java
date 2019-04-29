@@ -22,22 +22,24 @@ import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.ResourceBundle;
 
+/**
+ * @author Kamil
+ */
 public class AdminMenuController extends Notification implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
-    @FXML
-    private Label labelFirstName;
-    @FXML
-    private Label labelLastName;
-    @FXML
-    private Label labelDate;
+    @FXML private Label labelFirstName;
+    @FXML private Label labelLastName;
+    @FXML private Label labelDate;
 
     private Employee admin;
 
     private ResourceBundle actualLanguage;
 
+    /**
+     * Set up current date into labels.
+     */
     public void setHeader () {
         labelFirstName.setText(admin.getFirstName());
         labelLastName.setText(admin.getLastName());
@@ -65,6 +67,10 @@ public class AdminMenuController extends Notification implements Initializable {
         setHeader();
     }
 
+    /**
+     * Switch to another scene. Scene is for addition of employee.
+     * @param actionEvent
+     */
     public void btnAddEmployeePushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -87,6 +93,10 @@ public class AdminMenuController extends Notification implements Initializable {
         currentStage.show();
     }
 
+    /**
+     * Switch to another scene. Scene is for searching employee.
+     * @param actionEvent
+     */
     public void btnSearchEmployeePushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -112,6 +122,10 @@ public class AdminMenuController extends Notification implements Initializable {
         currentStage.show();
     }
 
+    /**
+     * Switch to the login scene.
+     * @param actionEvent
+     */
     public void btnLogOutPushed(ActionEvent actionEvent) {
         AnchorPane pane = null;
         try {

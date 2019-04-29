@@ -23,6 +23,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 import src.model.Car;
+import src.model.Contract;
 import src.model.Customer;
 import src.model.Employee;
 
@@ -35,10 +36,12 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Predicate;
 
+/**
+ * @author Kamil
+ */
 public class EmployeeSearchCustomerController extends EmployeeBackToMenu implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
     @FXML private Label labelFirstName;
     @FXML private Label labelDate;
@@ -75,6 +78,9 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
 
     private ResourceBundle actualLanguage;
 
+    /**
+     * Set up current date into labels.
+     */
     public void setHeader () {
         labelFirstName.setText(employee.getFirstName());
         labelLastName.setText(employee.getLastName());
@@ -149,6 +155,9 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         }
     }
 
+    /**
+     * Connect to database for add items to list. Later it will be shown in the tableView.
+     */
     public void addItemsToList() {
         String resourceURL = "http://localhost:8080/api/customer/byOffSet/" + offSet;
 
@@ -158,15 +167,25 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<List<Customer>> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<List<Customer>> result = restTemplate.exchange(resourceURL,
-                HttpMethod.GET, entity, new ParameterizedTypeReference<List<Customer>>() {
-                });
+        ResponseEntity<List<Customer>> result;
+
+        try {
+            result = restTemplate.exchange(resourceURL,
+                    HttpMethod.GET, entity, new ParameterizedTypeReference<List<Customer>>() {
+                    });
+        } catch (Exception e) {
+            showError(actualLanguage.getString("notificationNoResponseServer"));
+            return;
+        }
 
         observableList = FXCollections.observableArrayList();
 
         observableList.addAll(result.getBody());
     }
 
+    /**
+     * Connect to database for add items to list. Later it will be shown in the tableView.
+     */
     public void addItemsToListWithSpecification() {
 
         String resourceURL = "http://localhost:8080/api/customer/searchByID/" +
@@ -178,15 +197,25 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<List<Customer>> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<List<Customer>> result = restTemplate.exchange(resourceURL,
-                HttpMethod.GET, entity, new ParameterizedTypeReference<List<Customer>>() {
-                });
+        ResponseEntity<List<Customer>> result;
+
+        try {
+            result = restTemplate.exchange(resourceURL,
+                    HttpMethod.GET, entity, new ParameterizedTypeReference<List<Customer>>() {
+                    });
+        } catch (Exception e) {
+            showError(actualLanguage.getString("notificationNoResponseServer"));
+            return;
+        }
 
         observableList = FXCollections.observableArrayList();
 
         observableList.addAll(result.getBody());
     }
 
+    /**
+     * Fill tableView with items.
+     */
     public void addItemsToTable() {
         tableView.setItems(observableList);
 
@@ -197,6 +226,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         }
     }
 
+    /**
+     * Switched to new scene for detail of customer.
+     * @param actionEvent
+     */
     public void detailMenuSelected(ActionEvent actionEvent) {
         if(tableView.getSelectionModel().getSelectedItem() == null) {
             return;
@@ -262,6 +295,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         }
     }
 
+    /**
+     * Connect to server and customer record will be deleted from database.
+     * @param actionEvent
+     */
     public void deleteMenuSelected(ActionEvent actionEvent) {
         if(tableView.getSelectionModel().getSelectedItem() == null) {
             return;
@@ -277,7 +314,14 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Boolean> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<Boolean> result = restTemplate.exchange(resourceURL, HttpMethod.DELETE, entity, Boolean.class);
+        ResponseEntity<Boolean> result;
+
+        try {
+            result = restTemplate.exchange(resourceURL, HttpMethod.DELETE, entity, Boolean.class);
+        } catch (Exception e) {
+            showError(actualLanguage.getString("notificationNoResponseServer"));
+            return;
+        }
 
         if(result.getBody()) {
             showConfirm(actualLanguage.getString("notificationDeleteRecord"));
@@ -290,6 +334,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         }
     }
 
+    /**
+     * Method if we want to this concrete contract create an agreement.
+     * @param actionEvent
+     */
     public void createContractMenuSelected(ActionEvent actionEvent) {
         if(tableView.getSelectionModel().getSelectedItem() == null) {
             return;
@@ -297,7 +345,6 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
 
         backToCreateContract(true);
     }
-
 
     public void backToCreateContract(Boolean isPersonSelected) {
         Parent parent = null;
@@ -332,6 +379,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         currentStage.show();
     }
 
+    /**
+     *
+     * @param keyEvent
+     */
     public void searchInTable(KeyEvent keyEvent) {
 
         if(observableList == null) {
@@ -367,6 +418,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         setNewRangeOfDisplayedData();
     }
 
+    /**
+     * If there is more than 500 records, method will load next 500.
+     * @param actionEvent
+     */
     public void loadNext(ActionEvent actionEvent) {
         offSet++;
 
@@ -410,6 +465,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         thread.start();
     }
 
+    /**
+     * Method will load previous 500 records.
+     * @param actionEvent
+     */
     public void loadPrevious(ActionEvent actionEvent) {
         if(offSet > 0) {
             buttonNextData.setDisable(false);
@@ -454,6 +513,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         thread.start();
     }
 
+    /**
+     * Search in database based on some criteria.
+     * @param actionEvent
+     */
     public void buttonSearchInDatabasePushed(ActionEvent actionEvent) {
         if(getTextFieldSearchInDatabase().trim().isEmpty()) {
             showError(actualLanguage.getString("notificationNoEnterData"));
@@ -502,6 +565,10 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         thread.start();
     }
 
+    /**
+     * Data without any criteria are searching and displayed.
+     * @param actionEvent
+     */
     public void buttonDisplayDataPushed(ActionEvent actionEvent) {
         isButtonSearchInDatabasePushed = false;
 
@@ -541,6 +608,9 @@ public class EmployeeSearchCustomerController extends EmployeeBackToMenu impleme
         thread.start();
     }
 
+    /**
+     * Switched to new scene back to menu.
+     */
     public void btnBackPushed(ActionEvent actionEvent) {
         if(openedFromContractScene) {
             backToCreateContract(false);

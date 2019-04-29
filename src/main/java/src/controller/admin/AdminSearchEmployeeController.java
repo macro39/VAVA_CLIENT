@@ -29,6 +29,9 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.Predicate;
 
+/**
+ * @author Kamil
+ */
 public class AdminSearchEmployeeController extends Notification implements Initializable {
 
     @FXML
@@ -68,6 +71,9 @@ public class AdminSearchEmployeeController extends Notification implements Initi
 
     private ResourceBundle actualLanguage;
 
+    /**
+     * Set up current date into labels.
+     */
     public void setHeader () {
         labelFirstName.setText(admin.getFirstName());
         labelLastName.setText(admin.getLastName());
@@ -126,6 +132,9 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         }
     }
 
+    /**
+     * Connect to database for add items to list. Later it will be shown in the tableView.
+     */
     public void addItemsToList() {
         String resourceURL = "http://localhost:8080/api/employee/byOffSet/" + offSet;
 
@@ -135,15 +144,25 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<List<Employee>> entity = new HttpEntity<>(headers);
 
-        ResponseEntity<List<Employee>> result = restTemplate.exchange(resourceURL,
-                HttpMethod.GET, entity, new ParameterizedTypeReference<List<Employee>>() {
-        });
+        ResponseEntity<List<Employee>> result;
+
+        try {
+            result = restTemplate.exchange(resourceURL,
+                    HttpMethod.GET, entity, new ParameterizedTypeReference<List<Employee>>() {
+                    });
+        } catch (Exception e) {
+            showError(actualLanguage.getString("notificationNoResponseServer"));
+            return;
+        }
 
         observableList = FXCollections.observableArrayList();
 
         observableList.addAll(result.getBody());
     }
 
+    /**
+     * Connect to database for add items to list. Later it will be shown in the tableView.
+     */
     public void addItemsToListWithSpecification() {
 
         String resourceURL = "http://localhost:8080/api/employee/searchByLastName/" +
@@ -164,6 +183,9 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         observableList.addAll(result.getBody());
     }
 
+    /**
+     * Fill tableView with items.
+     */
     public void addItemsToTable() {
         tableView.setItems(observableList);
 
@@ -174,6 +196,10 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         }
     }
 
+    /**
+     *
+     * @param keyEvent
+     */
     public void searchInTable(KeyEvent keyEvent) {
 
         if(observableList == null) {
@@ -209,6 +235,10 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         setNewRangeOfDisplayedData();
     }
 
+    /**
+     * Search in database based on some criteria.
+     * @param actionEvent
+     */
     public void buttonSearchInDatabasePushed(ActionEvent actionEvent) {
 
         if(getTextFieldSearchInDatabase().trim().isEmpty()) {
@@ -258,6 +288,10 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         thread.start();
     }
 
+    /**
+     * Data without any criteria are searching and displayed.
+     * @param actionEvent
+     */
     public void buttonDisplayDataPushed(ActionEvent actionEvent) {
         isButtonSearchInDatabasePushed = false;
 
@@ -297,6 +331,10 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         thread.start();
     }
 
+    /**
+     * If there is more than 500 records, method will load next 500.
+     * @param actionEvent
+     */
     public void loadNext(ActionEvent actionEvent) {
         offSet++;
 
@@ -340,6 +378,10 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         thread.start();
     }
 
+    /**
+     * Method will load previous 500 records.
+     * @param actionEvent
+     */
     public void loadPrevious(ActionEvent actionEvent) {
 
         if(offSet > 0) {
@@ -385,6 +427,10 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         thread.start();
     }
 
+    /**
+     * Switched to new scene for detail of employee.
+     * @param actionEvent
+     */
     public void detailMenuSelected(ActionEvent actionEvent) {
         if(tableView.getSelectionModel().getSelectedItem() == null) {
             return;
@@ -450,6 +496,10 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         }
     }
 
+    /**
+     * Connect to server and employee will be deleted from database.
+     * @param actionEvent
+     */
     public void deleteMenuSelected(ActionEvent actionEvent) {
         if(tableView.getSelectionModel().getSelectedItem() == null) {
             return;
@@ -482,6 +532,9 @@ public class AdminSearchEmployeeController extends Notification implements Initi
         backToMenu();
     }
 
+    /**
+     * Switched to new scene back to menu.
+     */
     public void backToMenu() {
         Parent parent = null;
         try {

@@ -13,6 +13,9 @@ import src.model.Customer;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author Kamil
+ */
 public class EmployeeCustomerDetailController implements Initializable {
 
     @FXML private AnchorPane rootPane;

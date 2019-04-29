@@ -17,23 +17,19 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * @author Kamil
+ */
 public class EmployeeAddCustomerController extends EmployeeBackToMenu implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
 
-    @FXML
-    private JFXTextField textFieldFirstName;
-    @FXML
-    private JFXTextField textFieldLastName;
-    @FXML
-    private JFXTextField textFieldID;
-    @FXML
-    private JFXTextField textFieldAddress;
-    @FXML
-    private JFXTextField textFieldBankAccount;
-    @FXML
-    private JFXTextField textFieldPhone;
+    @FXML private JFXTextField textFieldFirstName;
+    @FXML private JFXTextField textFieldLastName;
+    @FXML private JFXTextField textFieldID;
+    @FXML private JFXTextField textFieldAddress;
+    @FXML private JFXTextField textFieldBankAccount;
+    @FXML private JFXTextField textFieldPhone;
 
     private Employee employee;
 
@@ -78,6 +74,10 @@ public class EmployeeAddCustomerController extends EmployeeBackToMenu implements
         return textFieldPhone.getText();
     }
 
+    /**
+     * Test that all info has correct length.
+     * @return true if all info is correct, or false if there is wrong input.
+     */
     public boolean tooLongTextChecker(){
         if(getLastName().length() > 255 ||
                 getID().length() > 8 ||
@@ -90,6 +90,10 @@ public class EmployeeAddCustomerController extends EmployeeBackToMenu implements
         return false;
     }
 
+    /**
+     * Test that all info is not empty.
+     * @return true if all info has something written, or false if there is still empty field.
+     */
     public boolean emptyFieldChecker() {
         if (getFirstName().trim().isEmpty() ||
                 getAddress().trim().isEmpty() ||
@@ -102,6 +106,10 @@ public class EmployeeAddCustomerController extends EmployeeBackToMenu implements
         return false;
     }
 
+    /**
+     * Show notification if text is too long or there is empty field.
+     * @param actionEvent
+     */
     public void btnAddPushed(ActionEvent actionEvent) {
 
         if(tooLongTextChecker()) {
@@ -125,7 +133,7 @@ public class EmployeeAddCustomerController extends EmployeeBackToMenu implements
             try {
                 result = restTemplate.exchange(resourceURL, HttpMethod.POST, entity, Boolean.class);
             } catch (Exception e) {
-                LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
+                //LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
                 showError(actualLanguage.getString("notificationNoResponseServer"));
                 return;
             }

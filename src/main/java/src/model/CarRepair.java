@@ -5,6 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+/**
+ * @author Kamil
+ */
 public class CarRepair {
 
     @JsonProperty("repairID")

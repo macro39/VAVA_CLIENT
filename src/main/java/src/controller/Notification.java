@@ -3,6 +3,9 @@ package src.controller;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
+/**
+ * @author Kamil
+ */
 public class Notification {
 
     public void showInformation(String message) {

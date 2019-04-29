@@ -19,8 +19,7 @@ import java.util.ResourceBundle;
 
 public class EmployeeSearchMenuController extends EmployeeBackToMenu implements Initializable {
 
-    @FXML
-    private AnchorPane rootPane;
+    @FXML private AnchorPane rootPane;
     @FXML private Label labelFirstName;
     @FXML private Label labelDate;
     @FXML private Label labelLastName;
@@ -48,6 +47,10 @@ public class EmployeeSearchMenuController extends EmployeeBackToMenu implements 
         setHeader();
     }
 
+    /**
+     * Switch another scene for opportunity to search customer which is in the database.
+     * @param actionEvent
+     */
     public void btnSearchCustomerPushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -73,6 +76,10 @@ public class EmployeeSearchMenuController extends EmployeeBackToMenu implements 
         currentStage.show();
     }
 
+    /**
+     * Switch another scene for opportunity to search car which is in the database.
+     * @param actionEvent
+     */
     public void btnSearchCarPushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -98,6 +105,10 @@ public class EmployeeSearchMenuController extends EmployeeBackToMenu implements 
         currentStage.show();
     }
 
+    /**
+     * Switch another scene for opportunity to search contract which is in the database.
+     * @param actionEvent
+     */
     public void btnSearchContractPushed(ActionEvent actionEvent) {
         Parent parent = null;
         try {
@@ -123,6 +134,9 @@ public class EmployeeSearchMenuController extends EmployeeBackToMenu implements 
         currentStage.show();
     }
 
+    /**
+     * Switched to new scene back to menu.
+     */
     public void btnBackPushed(ActionEvent actionEvent) {
         backToMenu(rootPane,employee,actualLanguage);
     }
