@@ -193,7 +193,7 @@ public class EmployeeCarDetailController extends Notification implements Initial
     }
 
     public Boolean checkFieldsBeforeSubmittingNewRepair() {
-        if(getServiceName().trim().isEmpty() ||
+        if(getServiceName().trim().isEmpty() || getServiceName().length() > 254 ||
                 getTypeOfRepair().trim().isEmpty() ||
                 getDateOfService() == null) {
             return true;
@@ -208,21 +208,54 @@ public class EmployeeCarDetailController extends Notification implements Initial
     }
 
     public void changeSPZCell(TableColumn.CellEditEvent<Car, String> carStringCellEditEvent) {
+        if(carStringCellEditEvent.getNewValue().trim().isEmpty()
+                || carStringCellEditEvent.getNewValue().length() > 8) {
+            showError("ERROR");
+            return;
+        }
+
         dataChanged = true;
         car.setCarSPZ(carStringCellEditEvent.getNewValue().toUpperCase());
     }
 
     public void changeMileAgeCell(TableColumn.CellEditEvent<Car, Integer> carIntegerCellEditEvent) {
+        try
+        {
+            Integer.parseInt(String.valueOf(carIntegerCellEditEvent.getNewValue()));
+        } catch (NumberFormatException ex)
+        {
+            showError("ERROR");
+            return;
+        }
+
         dataChanged = true;
         car.setMileAge(carIntegerCellEditEvent.getNewValue());
     }
 
     public void changeEnginePowerCell(TableColumn.CellEditEvent<Car, Integer> carIntegerCellEditEvent) {
+        try
+        {
+            Integer.parseInt(String.valueOf(carIntegerCellEditEvent.getNewValue()));
+        } catch (NumberFormatException ex)
+        {
+            showError("ERROR");
+            return;
+        }
+
         dataChanged = true;
         car.getCarInfo().setEnginePower(carIntegerCellEditEvent.getNewValue());
     }
 
     public void changePricePerDayCell(TableColumn.CellEditEvent<Car, Double> carDoubleCellEditEvent) {
+        try
+        {
+            Double.parseDouble(String.valueOf(carDoubleCellEditEvent.getNewValue()));
+        } catch (NumberFormatException ex)
+        {
+            showError("ERROR");
+            return;
+        }
+
         dataChanged = true;
         car.getCarInfo().setPricePerDay(carDoubleCellEditEvent.getNewValue());
     }

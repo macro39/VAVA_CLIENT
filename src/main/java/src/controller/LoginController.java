@@ -96,6 +96,7 @@ public class LoginController extends Notification implements Initializable {
         try {
             result = restTemplate.exchange(resourceURL, HttpMethod.GET, entity, Employee.class);
         } catch (Exception e) {
+            LOG.log(Level.WARNING, actualLanguage.getString("notificationNoResponseServer"));
             showError(actualLanguage.getString("notificationNoResponseServer"));
             return;
         }

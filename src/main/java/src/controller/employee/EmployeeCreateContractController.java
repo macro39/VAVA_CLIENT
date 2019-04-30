@@ -13,6 +13,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
+import org.springframework.web.client.RestTemplate;
 import src.model.Car;
 import src.model.Contract;
 import src.model.Customer;
@@ -22,8 +25,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -208,7 +210,8 @@ public class EmployeeCreateContractController extends EmployeeBackToMenu impleme
      * @param actionEvent
      */
     public void btnCreateContractPushed(ActionEvent actionEvent) {
-        if (getDateTo() == null || getDateFrom() == null || getDateTo().before(getDateFrom())) {
+        if (getDateTo() == null || getDateFrom() == null || getDateTo().before(getDateFrom())
+                || getDateFrom().before(Calendar.getInstance().getTime())) {
             showWarning(actualLanguage.getString("notificationBadRentalPeriod"));
         } else if(car == null) {
             showError(actualLanguage.getString("notificationNoEnterData"));
@@ -222,6 +225,40 @@ public class EmployeeCreateContractController extends EmployeeBackToMenu impleme
 
             Date date = Date.valueOf(
                     new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime()));
+
+
+            Date dateFROM = Date.valueOf(
+                    new SimpleDateFormat("yyyy-MM-dd").format(getDateFrom().getTime()));
+
+            Date dateTO = Date.valueOf(
+                    new SimpleDateFormat("yyyy-MM-dd").format(getDateTo().getTime()));
+
+
+            String resourceURL = "http://localhost:8080/api/contract/exists/" + car.getCarVIN()
+                    + "/" + dateFROM + "/" + dateTO;
+
+            RestTemplate restTemplate = new RestTemplate();
+
+            HttpHeaders headers = new HttpHeaders();
+            //headers.set("Content-Type","application/json");
+            headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+            HttpEntity<Employee> entity = new HttpEntity<>(headers);
+
+            ResponseEntity<List<String>> result;
+
+            try {
+                result = restTemplate.exchange(resourceURL, HttpMethod.GET, entity,
+                        new ParameterizedTypeReference<List<String>>() {
+                });
+            } catch (Exception e) {
+                showError(actualLanguage.getString("notificationNoResponseServer"));
+                return;
+            }
+
+            if(result.getBody() != null) {
+                showWarning("Zadané auto je v termíne " + result.getBody() + " vypožičané!");
+                return;
+            }
 
             Contract contract = new Contract(car,customer,employee,getDateFrom(),getDateTo(),price,date);
 
