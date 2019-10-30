@@ -813,5 +813,4 @@ public class EmployeeSearchContractController extends EmployeeBackToMenu impleme
         currentStage.show();
     }
 
-
 }
